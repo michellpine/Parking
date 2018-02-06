@@ -5,6 +5,10 @@ public abstract class Vehicle {
     protected VehicleType type;
     protected boolean isParking;
 
+    public Vehicle(){
+
+    }
+
     public Vehicle(String license, VehicleType type, boolean isParking) {
         this.license = license;
         this.type = type;

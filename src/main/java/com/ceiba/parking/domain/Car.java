@@ -12,6 +12,9 @@ public class Car extends Vehicle {
     @Id
     private String id = UUID.randomUUID().toString();
 
+    public Car(){
+    }
+
     public Car(String license, VehicleType type, boolean isParking) {
         super(license, type, isParking);
     }

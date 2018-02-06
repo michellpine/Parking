@@ -5,6 +5,7 @@ import com.ceiba.parking.domain.Motorcycle;
 import com.ceiba.parking.domain.Vehicle;
 import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.repositories.MotorcycleRepository;
+import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -39,11 +40,11 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     //Cars Responsaility
     @Override
     @Transactional
-    public Mono<Car> saveCar(Car vehicle) {
+    public Mono<Void> saveCar(Publisher<Car> vehicle) {
         if (carRepository.count().block() > CAR_CELLS) {
             throw new IllegalArgumentException("Vehicle cannot enter, there are not more cells available for cars");
         }
-        return carRepository.save(vehicle);
+        return carRepository.saveAll(vehicle).then();
     }
 
     @Override
@@ -65,12 +66,14 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     //Motorcycle Responsaility
     @Override
     @Transactional
-    public Mono<Motorcycle> saveMotorcycle(Motorcycle vehicle) {
+    public Mono<Void> saveMotorcycle(Publisher<Motorcycle> vehicle) {
         if(motorcycleRepository.count().block()>MOTORCYCLE_CELLS){
             throw new IllegalArgumentException("Vehicle cannot enter, there are not more cells available for motorcycles");
         }
-        return motorcycleRepository.save(vehicle);
+        return motorcycleRepository.saveAll(vehicle).then();
     }
+
+
 
     @Override
     public Flux<Motorcycle> showMotorcycles() {

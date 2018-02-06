@@ -12,6 +12,10 @@ public class Motorcycle extends Vehicle{
     private String id = UUID.randomUUID().toString();
     private int engine;
 
+    public Motorcycle(){
+
+    }
+
     public Motorcycle(String license, VehicleType type, int engine, boolean isParking) {
         super(license, type, isParking);
         this.engine = engine;

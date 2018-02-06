@@ -1,11 +1,10 @@
 package com.ceiba.parking.controllers;
 
 import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.services.ParkingGuardService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.reactivestreams.Publisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -25,5 +24,11 @@ public class CarController {
     @GetMapping("/api/cars/{id}")
     Mono<Car> getById(@PathVariable String id){
         return parkingGuardService.findCar(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/api/cars")
+    Mono<Void> create(@RequestBody Publisher<Car> carStream){
+        return parkingGuardService.saveCar(carStream);
     }
 }
