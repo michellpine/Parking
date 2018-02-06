@@ -17,7 +17,7 @@ public class CarController {
     }
 
     @GetMapping("/api/cars")
-    Flux<Car> list(){
+    Flux<Car> listCars(){
         return parkingGuardService.showCars();
     }
 
@@ -28,7 +28,7 @@ public class CarController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/cars")
-    Mono<Void> create(@RequestBody Publisher<Car> carStream){
+    Mono<Void> createCar(@RequestBody Publisher<Car> carStream){
         return parkingGuardService.saveCar(carStream);
     }
 }

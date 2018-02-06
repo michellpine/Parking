@@ -12,10 +12,12 @@ import java.util.List;
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
     Mono<Void> saveCar(Publisher<Car> vehicle);
-    Mono<Void> saveMotorcycle(Publisher<Motorcycle> vehicle);
     Flux<Car> showCars();
     Mono<Car> findCar(String id);
-    Flux<Motorcycle> showMotorcycles();
     void outCar(Car car);
+
+    Mono<Void> saveMotorcycle(Publisher<Motorcycle> vehicle);
+    Flux<Motorcycle> showMotorcycles();
+    Mono<Motorcycle> findMotorcycle(String id);
     void outMotorcycle(Motorcycle motor);
 }

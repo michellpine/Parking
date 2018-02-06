@@ -108,46 +108,4 @@ public class ParkingServiceGuardServiceImplTest {
         }
     }
 
-    /*
-    @Test
-    public void moreCarsThanCells(){
-        //Arrange
-        Car car = aCar()
-                .withLicense("XCD123")
-                .withType(VehicleType.CAR)
-                .withIsParking(true)
-                .build();
-        try {
-            CarRepository carRepository = Mockito.mock(CarRepository.class);
-            Mockito.when(carRepository.count()).thenReturn(20l);
-
-            //Act
-            parkingGuardService.saveCar(car);
-            fail();
-        }catch (RuntimeException e){
-            //Assert
-            assertEquals("Vehicle cannot enter, there are not more cells available for cars", e.getMessage());
-        }
-    }
-
-    @Test
-    public void cellsAvailableForCars(){
-        //Arrange
-        Car car = aCar()
-                .withLicense("XCD123")
-                .withType(VehicleType.CAR)
-                .withIsParking(true)
-                .build();
-        try {
-            CarRepository carRepository = Mockito.mock(CarRepository.class);
-            Mockito.when(carRepository.count()).thenReturn(10l);
-
-            //Act
-            parkingGuardService.saveCar(car);
-        }catch (RuntimeException e){
-            //Assert
-            assertEquals("Vehicle cannot enter, there are not more cells available for cars", e.getMessage());
-        }
-    }
-    */
 }

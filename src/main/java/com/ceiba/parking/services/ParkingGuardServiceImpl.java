@@ -73,7 +73,10 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         return motorcycleRepository.saveAll(vehicle).then();
     }
 
-
+    @Override
+    public Mono<Motorcycle> findMotorcycle(String id) {
+        return motorcycleRepository.findById(id);
+    }
 
     @Override
     public Flux<Motorcycle> showMotorcycles() {
