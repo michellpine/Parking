@@ -7,11 +7,8 @@ import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.repositories.MotorcycleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Service
 public class ParkingGuardServiceImpl implements ParkingGuardService {
@@ -25,29 +22,47 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
 
     public ParkingGuardServiceImpl(CarRepository carRepository, MotorcycleRepository motorcycleRepository, CalendarGuard calendarGuard) {
         this.carRepository = carRepository;
-        this.motorcycleRepository  = motorcycleRepository;
+        this.motorcycleRepository = motorcycleRepository;
         this.calendarGuard = calendarGuard;
     }
 
     @Override
-    public boolean canEnterVehicle(Vehicle vehicle){
-        if(vehicle.getLicense().toUpperCase().startsWith("A")
+    public boolean canEnterVehicle(Vehicle vehicle) {
+        if (vehicle.getLicense().toUpperCase().startsWith("A")
                 && calendarGuard.getActualDay() != java.util.Calendar.MONDAY
-                && calendarGuard.getActualDay() != java.util.Calendar.SUNDAY){
+                && calendarGuard.getActualDay() != java.util.Calendar.SUNDAY) {
             throw new IllegalArgumentException("Vehicle cannot enter, license begin for A and today is not available day for it");
         }
         return true;
     }
 
+    //Cars Responsaility
     @Override
     @Transactional
     public Mono<Car> saveCar(Car vehicle) {
-        if(carRepository.count().block()>CAR_CELLS){
+        if (carRepository.count().block() > CAR_CELLS) {
             throw new IllegalArgumentException("Vehicle cannot enter, there are not more cells available for cars");
         }
         return carRepository.save(vehicle);
     }
 
+    @Override
+    public Flux<Car> showCars() {
+        return carRepository.findAll();
+    }
+
+    @Override
+    public Mono<Car> findCar(String id) {
+        return carRepository.findById(id);
+    }
+
+    @Override
+    public void outCar(Car car) {
+        car.setParking(false);
+    }
+
+
+    //Motorcycle Responsaility
     @Override
     @Transactional
     public Mono<Motorcycle> saveMotorcycle(Motorcycle vehicle) {
@@ -58,26 +73,8 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     }
 
     @Override
-    public List<Car> showParkingCars(Car car) {
-        List<Car> cars = new ArrayList<>();
-        if(car.isParking()){
-            carRepository.findAll();
-        }
-        return cars;
-    }
-
-    @Override
-    public List<Motorcycle> showParkingMotorcycles(Motorcycle motorcycle) {
-        List<Motorcycle> motors = new ArrayList<>();
-        if(motorcycle.isParking()){
-            motorcycleRepository.findAll();
-        }
-        return motors;
-    }
-
-    @Override
-    public void outCar(Car car) {
-        car.setParking(false);
+    public Flux<Motorcycle> showMotorcycles() {
+        return motorcycleRepository.findAll();
     }
 
     @Override

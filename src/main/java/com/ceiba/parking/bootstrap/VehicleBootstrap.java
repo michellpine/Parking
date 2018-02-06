@@ -23,14 +23,17 @@ public class VehicleBootstrap implements CommandLineRunner{
     public void run(String... args) throws Exception {
         System.out.println("#### LOADING DATA ON BOOTSTRAP #####");
         if(carRepository.count().block() == 0){
-            Car car = new Car("sed123", VehicleType.CAR, true);
-            carRepository.save(car);
+            for(int i=0; i<3; i++){
+                Car car = new Car("SED12"+i, VehicleType.CAR, true);
+                carRepository.save(car).block();
+            }
+
             System.out.println(("carros: "+ carRepository.count().block()));
         }
 
         if(motorcycleRepository.count().block()==0){
             Motorcycle motor = new Motorcycle("sed123", VehicleType.MOTORCYCLE, 150, true);
-            motorcycleRepository.save(motor);
+            motorcycleRepository.save(motor).block();
             System.out.println(("motos: "+ motorcycleRepository.count().block()));
         }
 
