@@ -7,6 +7,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface ParkingGuardService {
+    boolean canEnterVehicle(Vehicle vehicle);
     Mono<Car> saveCar(Car vehicle);
     Flux<Car> showCars();
     Mono<Car> findCar(String id);

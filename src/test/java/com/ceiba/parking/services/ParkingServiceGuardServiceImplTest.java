@@ -22,6 +22,7 @@ public class ParkingServiceGuardServiceImplTest {
     ParkingGuardService parkingGuardService;
     CarRepository carRepository;
     MotorcycleRepository motorcycleRepository;
+    public static final String VEHICLE_CAN_ENTER = "Vehicle cannot enter, license begin for A and today is not available day for it";
 
     @Before
     public void setUp(){
@@ -29,7 +30,7 @@ public class ParkingServiceGuardServiceImplTest {
         parkingGuardService = new ParkingGuardServiceImpl(carRepository, motorcycleRepository, calendarGuard);
     }
 
-    /*
+
     @Test
     public void canEnterVehicle(){
         Motorcycle moto = aMotorcycle()
@@ -41,7 +42,7 @@ public class ParkingServiceGuardServiceImplTest {
         try {
             parkingGuardService.canEnterVehicle(moto);
         }catch (RuntimeException e){
-                assertEquals("Vehicle cannot enter, license begin for A and today is not available day for it", e.getMessage());
+                assertEquals(VEHICLE_CAN_ENTER, e.getMessage());
         }
     }
 
@@ -49,7 +50,7 @@ public class ParkingServiceGuardServiceImplTest {
     public void licenseVehicleBeginToA_DayIsDifferentToMondayAndSunday(){
         //Arrange
         Car car = aCar()
-                .withLicense("ACD123")
+                .withLicense("ACD124")
                 .withType(VehicleType.CAR)
                 .withIsParking(true)
                 .build();
@@ -63,7 +64,7 @@ public class ParkingServiceGuardServiceImplTest {
             fail();
         }catch (RuntimeException e){
             //Assert
-            assertEquals("Vehicle cannot enter, license begin for A and today is not available day for it", e.getMessage());
+            assertEquals(VEHICLE_CAN_ENTER, e.getMessage());
         }
     }
 
@@ -71,7 +72,7 @@ public class ParkingServiceGuardServiceImplTest {
     public void licenseVehicleBeginToA_DayIsMonday(){
         //Arrange
         Motorcycle moto = aMotorcycle()
-                .withLicense("ACD123")
+                .withLicense("ACD125")
                 .withType(VehicleType.MOTORCYCLE)
                 .withEngine(150)
                 .withIsParking(true)
@@ -85,7 +86,7 @@ public class ParkingServiceGuardServiceImplTest {
             parkingGuardService.canEnterVehicle(moto);
         }catch (RuntimeException e){
             //Assert
-            assertEquals("Vehicle cannot enter, license begin for A and today is not available day for it", e.getMessage());
+            assertEquals(VEHICLE_CAN_ENTER, e.getMessage());
         }
     }
 
@@ -93,7 +94,7 @@ public class ParkingServiceGuardServiceImplTest {
     public void licenseVehicleBeginToA_DayIsSunday(){
         //Arrange
         Motorcycle moto = aMotorcycle()
-                .withLicense("ACD123")
+                .withLicense("ACD126")
                 .withType(VehicleType.MOTORCYCLE)
                 .withIsParking(true)
                 .build();
@@ -106,9 +107,8 @@ public class ParkingServiceGuardServiceImplTest {
             parkingGuardService.canEnterVehicle(moto);
         }catch (RuntimeException e){
             //Assert
-            assertEquals("Vehicle cannot enter, license begin for A and today is not available day for it", e.getMessage());
+            assertEquals(VEHICLE_CAN_ENTER, e.getMessage());
         }
     }
 
-*/
 }

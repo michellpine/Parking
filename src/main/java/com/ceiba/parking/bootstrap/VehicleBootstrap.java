@@ -41,8 +41,8 @@ public class VehicleBootstrap implements CommandLineRunner{
         }
         CalendarGuard calendarGuard = new CalendarGuard();
         Date date1  = Calendar.getInstance().getTime();
-        Calendar b  = new GregorianCalendar(2018,1, 7, 15, 33, 38);
+        Calendar b  = new GregorianCalendar(2018,1, 7, 17, 56, 38);
         Date date2 = b.getTime();
-        calendarGuard.getActualHour(date1, date2);
+        System.err.println(calendarGuard.getHourDifferenceBetweenDates(date1, date2));
     }
 }
