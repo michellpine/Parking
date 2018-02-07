@@ -1,12 +1,14 @@
 package com.ceiba.parking.bootstrap;
 
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.VehicleType;
+import com.ceiba.parking.domain.*;
 import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.repositories.MotorcycleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Component
 public class VehicleBootstrap implements CommandLineRunner{

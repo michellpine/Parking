@@ -28,12 +28,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/CalendarGuard.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Car.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Motorcycle.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/ParkingTicket.java">
           <value>
             <set />
           </value>
@@ -89,6 +99,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/domain/VehicleTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/services/CalendarGuardTest.java">
           <value>
             <set />
           </value>

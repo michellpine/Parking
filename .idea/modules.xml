@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/parking.iml" filepath="$PROJECT_DIR$/parking.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/parking_main.iml" filepath="$PROJECT_DIR$/.idea/modules/parking_main.iml" group="parking" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/parking_test.iml" filepath="$PROJECT_DIR$/.idea/modules/parking_test.iml" group="parking" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Parking.iml" filepath="$PROJECT_DIR$/.idea/modules/Parking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Parking_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Parking_main.iml" group="Parking" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Parking_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Parking_test.iml" group="Parking" />
     </modules>
   </component>
 </project>
