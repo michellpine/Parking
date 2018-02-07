@@ -4,6 +4,7 @@ public abstract class Vehicle {
     protected String license;
     protected VehicleType type;
     protected boolean isParking;
+    protected ParkingTicket parkingTicket;
 
     public Vehicle(){
 
@@ -30,5 +31,10 @@ public abstract class Vehicle {
 
     public void setParking(boolean parking) {
         isParking = parking;
+    }
+
+    public Vehicle addParkingTicket(ParkingTicket parkingTicket) {
+        this.parkingTicket = parkingTicket;
+        return this;
     }
 }
