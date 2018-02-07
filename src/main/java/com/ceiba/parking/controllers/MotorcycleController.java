@@ -29,7 +29,7 @@ public class MotorcycleController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/motorcycles")
-    Mono<Void> createMotorcycle(@RequestBody Publisher<Motorcycle> motoStream){
-        return parkingGuardService.saveMotorcycle(motoStream);
+    Mono<Motorcycle> createMotorcycle(@RequestBody Motorcycle moto){
+        return parkingGuardService.saveMotorcycle(moto);
     }
 }

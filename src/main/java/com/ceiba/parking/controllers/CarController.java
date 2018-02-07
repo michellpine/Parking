@@ -28,7 +28,7 @@ public class CarController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/cars")
-    Mono<Void> createCar(@RequestBody Publisher<Car> carStream){
-        return parkingGuardService.saveCar(carStream);
+    Mono<Car> createCar(@RequestBody Car car){
+        return parkingGuardService.saveCar(car);
     }
 }
