@@ -16,16 +16,6 @@ public class CarController {
         this.parkingGuardService = parkingGuardService;
     }
 
-    @GetMapping("/api/cars")
-    Flux<Car> listCars(){
-        return parkingGuardService.showCars();
-    }
-
-    @GetMapping("/api/cars/{id}")
-    Mono<Car> getById(@PathVariable String id){
-        return parkingGuardService.findCar(id);
-    }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/cars")
     Mono<Car> createCar(@RequestBody Car car){

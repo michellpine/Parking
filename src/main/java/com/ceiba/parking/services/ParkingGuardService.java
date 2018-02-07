@@ -9,12 +9,8 @@ import reactor.core.publisher.Mono;
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
     Mono<Car> saveCar(Car vehicle);
-    Flux<Car> showCars();
-    Mono<Car> findCar(String id);
     void outCar(Car car);
 
     Mono<Motorcycle> saveMotorcycle(Motorcycle vehicle);
-    Flux<Motorcycle> showMotorcycles();
-    Mono<Motorcycle> findMotorcycle(String id);
     void outMotorcycle(Motorcycle motor);
 }

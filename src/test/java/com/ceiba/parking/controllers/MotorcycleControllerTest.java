@@ -32,7 +32,7 @@ public class MotorcycleControllerTest {
 
         motorcycleRepository = Mockito.mock(MotorcycleRepository.class);
     }
-
+/*
     @Test
     public void listMotorcycles(){
         Motorcycle motor = aMotorcycle()
@@ -66,7 +66,7 @@ public class MotorcycleControllerTest {
                 .exchange()
                 .expectBody(Motorcycle.class);
     }
-/*
+*/
     @Test
     public void createMotorcycle() {
         Motorcycle motorcycle = new Motorcycle();
@@ -84,11 +84,11 @@ public class MotorcycleControllerTest {
         Mono<Motorcycle> motorcycleMono = Mono.just(motor);
 
         webTestClient.post()
-                .uri("/motorcycles/cars")
+                .uri("/api/motorcycles")
                 .body(motorcycleMono, Motorcycle.class)
                 .exchange()
                 .expectStatus()
                 .isCreated();
-    }*/
+    }
 
 }

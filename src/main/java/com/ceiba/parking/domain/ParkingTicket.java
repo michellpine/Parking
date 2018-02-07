@@ -9,8 +9,6 @@ public class ParkingTicket {
 
     protected Date dateArrive;
     protected Date dateOut;
-    protected int countHours;
-    protected int valueToPay;
 
     public ParkingTicket() {
     }
@@ -31,19 +29,14 @@ public class ParkingTicket {
         this.dateOut = dateOut;
     }
 
-    public int getCountHours() {
-        return countHours;
-    }
-
-    public void setCountHours(int countHours) {
-        this.countHours = countHours;
-    }
-
-    public int getValueToPay() {
-        return valueToPay;
-    }
-
-    public void setValueToPay(int valueToPay) {
-        this.valueToPay = valueToPay;
+    public long getCountHours() {
+        //Se tiene en cuenta la diferencia en minutos, ya que despues de pasado un
+        //minuto, se cobra la siguiente hora
+        double differenceInMinutes = (dateOut.getTime() - dateArrive.getTime())/(60*1000);
+        if((differenceInMinutes/60) % 1 == 0){
+            return (dateOut.getTime() - dateArrive.getTime())/(60*60*1000);
+        }else{
+            return  (long) Math.ceil(differenceInMinutes/60);
+        }
     }
 }

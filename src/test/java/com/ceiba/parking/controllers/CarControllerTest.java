@@ -32,7 +32,7 @@ public class CarControllerTest {
 
         carRepository = Mockito.mock(CarRepository.class);
     }
-
+/*
     @Test
     public void listCars() {
         Car car = aCar()
@@ -64,7 +64,7 @@ public class CarControllerTest {
                 .uri("/api/cars/someid")
                 .exchange()
                 .expectBody(Car.class);
-    }
+    }*/
 
     @Test
     public void createCar() {

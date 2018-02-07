@@ -17,16 +17,6 @@ public class MotorcycleController {
         this.parkingGuardService = parkingGuardService;
     }
 
-    @GetMapping("/api/motorcycles")
-    Flux<Motorcycle> listMotorcycles(){
-        return parkingGuardService.showMotorcycles();
-    }
-
-    @GetMapping("/api/motorcycles/{id}")
-    Mono<Motorcycle> getMotorcycleById(@PathVariable String id){
-        return parkingGuardService.findMotorcycle(id);
-    }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/motorcycles")
     Mono<Motorcycle> createMotorcycle(@RequestBody Motorcycle moto){

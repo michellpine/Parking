@@ -39,10 +39,10 @@ public class VehicleBootstrap implements CommandLineRunner{
             motor.addParkingTicket(parkingTicket);
             motorcycleRepository.save(motor).block();
         }
-        CalendarGuard calendarGuard = new CalendarGuard();
+        ParkingTicket parkingTicket1 = new ParkingTicket();
         Date date1  = Calendar.getInstance().getTime();
         Calendar b  = new GregorianCalendar(2018,1, 7, 17, 56, 38);
         Date date2 = b.getTime();
-        System.err.println(calendarGuard.getHourDifferenceBetweenDates(date1, date2));
+        //System.err.println(parkingTicket1.chargeParkingTicket(date1, date2));
     }
 }

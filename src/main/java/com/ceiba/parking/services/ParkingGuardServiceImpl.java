@@ -1,9 +1,6 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.domain.CalendarGuard;
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.Vehicle;
+import com.ceiba.parking.domain.*;
 import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.repositories.MotorcycleRepository;
 import exception.ParkingException;
@@ -18,14 +15,17 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     private CalendarGuard calendarGuard;
     private CarRepository carRepository;
     private MotorcycleRepository motorcycleRepository;
+    private ParkingTicket parkingTicket;
 
     private static final int CAR_CELLS = 19;
     private static final int MOTORCYCLE_CELLS = 9;
 
-    public ParkingGuardServiceImpl(CarRepository carRepository, MotorcycleRepository motorcycleRepository, CalendarGuard calendarGuard) {
+    public ParkingGuardServiceImpl(CarRepository carRepository, MotorcycleRepository motorcycleRepository,
+                                   CalendarGuard calendarGuard, ParkingTicket parkingTicket) {
         this.carRepository = carRepository;
         this.motorcycleRepository = motorcycleRepository;
         this.calendarGuard = calendarGuard;
+        this.parkingTicket = parkingTicket;
     }
 
     @Override
@@ -45,24 +45,13 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         if (carRepository.count().block() > CAR_CELLS) {
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
         }
-
-
-
+        parkingTicket.setDateArrive(calendarGuard.getActualDate());
         return carRepository.save(vehicle);
     }
 
     @Override
-    public Flux<Car> showCars() {
-        return carRepository.findAll();
-    }
-
-    @Override
-    public Mono<Car> findCar(String id) {
-        return carRepository.findById(id);
-    }
-
-    @Override
     public void outCar(Car car) {
+        parkingTicket.setDateOut(calendarGuard.getActualDate());
         car.setParking(false);
     }
 
@@ -75,16 +64,6 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for motorcycles");
         }
         return motorcycleRepository.save(vehicle);
-    }
-
-    @Override
-    public Mono<Motorcycle> findMotorcycle(String id) {
-        return motorcycleRepository.findById(id);
-    }
-
-    @Override
-    public Flux<Motorcycle> showMotorcycles() {
-        return motorcycleRepository.findAll();
     }
 
     @Override
