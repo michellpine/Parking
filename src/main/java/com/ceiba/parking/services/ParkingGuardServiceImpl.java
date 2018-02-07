@@ -1,8 +1,8 @@
 package com.ceiba.parking.services;
 
+import com.ceiba.parking.domain.CalendarGuard;
 import com.ceiba.parking.domain.Car;
 import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.Vehicle;
 import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.repositories.MotorcycleRepository;
 import exception.ParkingException;
@@ -34,11 +34,13 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         if (carRepository.count().block() > CAR_CELLS) {
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
         }
+
         if (vehicle.getLicense().toUpperCase().startsWith("A")
                 && calendarGuard.getActualDay() != java.util.Calendar.MONDAY
                 && calendarGuard.getActualDay() != java.util.Calendar.SUNDAY) {
             throw new ParkingException("Vehicle cannot enter, license begin for A and today is not available day for it");
         }
+
         return carRepository.save(vehicle);
     }
 
