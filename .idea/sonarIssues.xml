@@ -133,6 +133,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/services/CalculatorParkingGuardTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/services/CalendarGuardTest.java">
           <value>
             <set />

@@ -10,6 +10,10 @@ import reactor.core.publisher.Mono;
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
     Mono<ParkingTicket> enterCar(Car vehicle);
-
     Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle);
+
+    Mono<ParkingTicket> findRegister(String id);
+    Flux<ParkingTicket> showAllRegisters();
+
+    Mono<ParkingTicket> outVehicle(ParkingTicket parkingTicket);
 }

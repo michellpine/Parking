@@ -17,7 +17,12 @@ public class MotorcycleController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/motorcycles")
-    Mono<ParkingTicket> createMotorcycle(@RequestBody Motorcycle moto){
+    Mono<ParkingTicket> createMotorcycle(@RequestBody Motorcycle moto) {
         return parkingGuardService.enterMotorcycle(moto);
+    }
+
+    Mono<ParkingTicket> outMotorcycle(@PathVariable String id, @RequestBody ParkingTicket parkingTicket){
+        ParkingTicket ticket = parkingGuardService.findRegister(id).block();
+        return parkingGuardService.outVehicle(ticket);
     }
 }

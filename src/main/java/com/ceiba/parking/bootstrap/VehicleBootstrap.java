@@ -7,9 +7,6 @@ import com.ceiba.parking.services.CalendarGuard;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Component
 public class VehicleBootstrap implements CommandLineRunner{
@@ -29,18 +26,12 @@ public class VehicleBootstrap implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         System.err.println("#### LOADING DATA ON BOOTSTRAP #####");
-        Calendar date  = new GregorianCalendar(2018,1, 8, 17, 56, 38);
-        Date dateOut = date.getTime();
         if(parkingTicketRepository.count().block() == 0){
             Car car = new Car("SED12", VehicleType.CAR, true);
             ParkingTicket parkingTicketCar =
-                    new ParkingTicket(car.getLicense(), car.getType(), calendarGuard.getActualDate(), dateOut, calculatorParkingGuard.getCountHours(calendarGuard.getActualDate(), dateOut), 5000);
+                    new ParkingTicket(car.getLicense(), car.getType(), calendarGuard.getActualDay(),  calendarGuard.getActualDay(), 0, 5000);
+            parkingTicketCar.addCar(car);
             parkingTicketRepository.save(parkingTicketCar).block();
-
-            Motorcycle motor = new Motorcycle("sed123", VehicleType.MOTORCYCLE, 150, true);
-            ParkingTicket parkingTicketMotor =
-                    new ParkingTicket(motor.getLicense(), motor.getType(), calendarGuard.getActualDate(), dateOut, calculatorParkingGuard.getCountHours(calendarGuard.getActualDate(), dateOut), 1000);
-            parkingTicketRepository.save(parkingTicketMotor).block();
         }
     }
 }

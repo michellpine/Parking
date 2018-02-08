@@ -14,4 +14,12 @@ public class Motorcycle extends Vehicle{
         super(license, type, isParking);
         this.engine = engine;
     }
+
+    public int getEngine() {
+        return engine;
+    }
+
+    public void setEngine(int engine) {
+        this.engine = engine;
+    }
 }
