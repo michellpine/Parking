@@ -1,22 +1,31 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.repositories.CarRepository;
-import com.ceiba.parking.repositories.MotorcycleRepository;
+import com.ceiba.parking.domain.Car;
+import com.ceiba.parking.domain.Motorcycle;
+import com.ceiba.parking.domain.VehicleType;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.util.Calendar;
+
+import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
+import static com.ceiba.parking.builder.MotorcycleTestDataBuilder.aMotorcycle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ParkingServiceGuardServiceImplTest {
 
     ParkingGuardService parkingGuardService;
-    CarRepository carRepository;
-    MotorcycleRepository motorcycleRepository;
+    ParkingTicketRepository parkingTicketRepository;
+    CalculatorParkingGuard calculatorParkingGuard;
     public static final String VEHICLE_CAN_ENTER = "Vehicle cannot enter, license begin for A and today is not available day for it";
-/*
+
     @Before
     public void setUp(){
         CalendarGuard calendarGuard = new CalendarGuard();
-        parkingGuardService = new ParkingGuardServiceImpl(carRepository, motorcycleRepository, calendarGuard);
+        parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
     }
 
 
@@ -45,10 +54,10 @@ public class ParkingServiceGuardServiceImplTest {
                 .build();
         try {
             CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
-            Mockito.when(calendarGuard.getActualDay()).thenReturn(Calendar.TUESDAY);
+            Mockito.when(calendarGuard.getActualWeekDay()).thenReturn(Calendar.TUESDAY);
 
             //Act
-            parkingGuardService = new ParkingGuardServiceImpl(carRepository, motorcycleRepository, calendarGuard);
+            parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
             parkingGuardService.canEnterVehicle(car);
             fail();
         }catch (RuntimeException e){
@@ -68,10 +77,10 @@ public class ParkingServiceGuardServiceImplTest {
                 .build();
         try {
             CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
-            Mockito.when(calendarGuard.getActualDay()).thenReturn(Calendar.MONDAY);
+            Mockito.when(calendarGuard.getActualWeekDay()).thenReturn(Calendar.MONDAY);
 
             //Act
-            parkingGuardService = new ParkingGuardServiceImpl(carRepository, motorcycleRepository, calendarGuard);
+            parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
             parkingGuardService.canEnterVehicle(moto);
         }catch (RuntimeException e){
             //Assert
@@ -89,16 +98,14 @@ public class ParkingServiceGuardServiceImplTest {
                 .build();
         try {
             CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
-            Mockito.when(calendarGuard.getActualDay()).thenReturn(Calendar.SUNDAY);
+            Mockito.when(calendarGuard.getActualWeekDay()).thenReturn(Calendar.SUNDAY);
 
             //Act
-            parkingGuardService = new ParkingGuardServiceImpl(carRepository, motorcycleRepository, calendarGuard);
+            parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
             parkingGuardService.canEnterVehicle(moto);
         }catch (RuntimeException e){
             //Assert
             assertEquals(VEHICLE_CAN_ENTER, e.getMessage());
         }
     }
-
-*/
 }

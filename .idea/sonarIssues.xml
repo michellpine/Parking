@@ -3,6 +3,11 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="/fragment.java">
           <value>
             <set />
@@ -43,6 +48,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Parking.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/ParkingGuard.java">
           <value>
             <set />
@@ -54,6 +64,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Vehicle.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/repositories/ParkingTicketRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/services/CalculatorParkingGuard.java">
           <value>
             <set />
           </value>

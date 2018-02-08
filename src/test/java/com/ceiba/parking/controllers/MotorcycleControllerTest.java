@@ -2,7 +2,7 @@ package com.ceiba.parking.controllers;
 
 import com.ceiba.parking.domain.Motorcycle;
 import com.ceiba.parking.domain.VehicleType;
-import com.ceiba.parking.repositories.MotorcycleRepository;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
 import com.ceiba.parking.services.ParkingGuardService;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class MotorcycleControllerTest {
     ParkingGuardService parkingGuardService;
     WebTestClient webTestClient;
 
-    MotorcycleRepository motorcycleRepository;
+    ParkingTicketRepository motorcycleRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -30,7 +30,7 @@ public class MotorcycleControllerTest {
         motorcycleController = new MotorcycleController(parkingGuardService);
         webTestClient = WebTestClient.bindToController(motorcycleController).build();
 
-        motorcycleRepository = Mockito.mock(MotorcycleRepository.class);
+        motorcycleRepository = Mockito.mock(ParkingTicketRepository.class);
     }
 /*
     @Test

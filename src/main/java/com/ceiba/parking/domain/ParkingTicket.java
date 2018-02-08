@@ -1,5 +1,6 @@
 package com.ceiba.parking.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -7,36 +8,34 @@ import java.util.Date;
 @Document
 public class ParkingTicket {
 
+    @Id
+    protected String id;
+    protected String license;
+    protected VehicleType vehicleType;
     protected Date dateArrive;
     protected Date dateOut;
+    protected long totalHours;
+    protected int valueToPay;
+    protected Car car;
+    protected Motorcycle motorcycle;
 
-    public ParkingTicket() {
-    }
-
-    public Date getDateArrive() {
-        return dateArrive;
-    }
-
-    public void setDateArrive(Date dateArrive) {
+    public ParkingTicket(String license, VehicleType vehicleType, Date dateArrive, Date dateOut, long totalHours, int valueToPay) {
+        this.license = license;
+        this.vehicleType = vehicleType;
         this.dateArrive = dateArrive;
-    }
-
-    public Date getDateOut() {
-        return dateOut;
-    }
-
-    public void setDateOut(Date dateOut) {
         this.dateOut = dateOut;
+        this.totalHours = totalHours;
+        this.valueToPay = valueToPay;
+    }
+/*
+    public ParkingTicket addCar(Car car){
+        this.car = car;
+        return this;
     }
 
-    public long getCountHours() {
-        //Se tiene en cuenta la diferencia en minutos, ya que despues de pasado un
-        //minuto, se cobra la siguiente hora
-        double differenceInMinutes = (dateOut.getTime() - dateArrive.getTime())/(60*1000);
-        if((differenceInMinutes/60) % 1 == 0){
-            return (dateOut.getTime() - dateArrive.getTime())/(60*60*1000);
-        }else{
-            return  (long) Math.ceil(differenceInMinutes/60);
-        }
+    public ParkingTicket addMotorcycle(Motorcycle motorcycle){
+        this.motorcycle = motorcycle;
+        return  this;
     }
+*/
 }

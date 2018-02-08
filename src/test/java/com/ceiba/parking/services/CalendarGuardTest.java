@@ -15,8 +15,8 @@ public class CalendarGuardTest {
         //Arrange
         CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
         //Act
-        when(calendarGuard.getActualDay()).thenReturn(Calendar.SUNDAY);
+        when(calendarGuard.getActualWeekDay()).thenReturn(Calendar.SUNDAY);
         //Arrange
-        assertEquals(1 ,calendarGuard.getActualDay());
+        assertEquals(1 ,calendarGuard.getActualWeekDay());
     }
 }

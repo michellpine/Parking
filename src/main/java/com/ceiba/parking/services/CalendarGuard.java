@@ -8,7 +8,7 @@ import java.util.Date;
 @Service
 public class CalendarGuard {
 
-    public int getActualDay(){
+    public int getActualWeekDay(){
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
 

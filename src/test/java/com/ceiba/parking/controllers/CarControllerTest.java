@@ -1,8 +1,9 @@
 package com.ceiba.parking.controllers;
 
 import com.ceiba.parking.domain.Car;
+import com.ceiba.parking.domain.ParkingTicket;
 import com.ceiba.parking.domain.VehicleType;
-import com.ceiba.parking.repositories.CarRepository;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
 import com.ceiba.parking.services.ParkingGuardService;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +22,7 @@ public class CarControllerTest {
     CarController carController;
     ParkingGuardService parkingGuardService;
     WebTestClient webTestClient;
-
-    CarRepository carRepository;
+    ParkingTicketRepository parkingTicketRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -30,7 +30,7 @@ public class CarControllerTest {
         carController = new CarController(parkingGuardService);
         webTestClient = WebTestClient.bindToController(carController).build();
 
-        carRepository = Mockito.mock(CarRepository.class);
+        parkingTicketRepository = Mockito.mock(ParkingTicketRepository.class);
     }
 /*
     @Test
@@ -64,13 +64,12 @@ public class CarControllerTest {
                 .uri("/api/cars/someid")
                 .exchange()
                 .expectBody(Car.class);
-    }*/
+    }
 
     @Test
-    public void createCar() {
+    public void enterCar() {
         Car car = new Car();
-
-        BDDMockito.given(carRepository.saveAll(any(Publisher.class)))
+        BDDMockito.given(parkingTicketRepository.saveAll(any(Publisher.class)))
                 .willReturn(Flux.just(car));
 
         Car car1 = aCar()
@@ -88,4 +87,5 @@ public class CarControllerTest {
                 .expectStatus()
                 .isCreated();
     }
+    */
 }

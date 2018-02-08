@@ -1,8 +1,9 @@
 package com.ceiba.parking.bootstrap;
 
 import com.ceiba.parking.domain.*;
-import com.ceiba.parking.repositories.CarRepository;
-import com.ceiba.parking.repositories.MotorcycleRepository;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
+import com.ceiba.parking.services.CalculatorParkingGuard;
+import com.ceiba.parking.services.CalendarGuard;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,36 +14,33 @@ import java.util.GregorianCalendar;
 @Component
 public class VehicleBootstrap implements CommandLineRunner{
 
-    private final CarRepository carRepository;
-    private final MotorcycleRepository motorcycleRepository;
+    private final ParkingTicketRepository parkingTicketRepository;
+    private final CalendarGuard calendarGuard;
+    private final CalculatorParkingGuard calculatorParkingGuard;
 
-    public VehicleBootstrap(CarRepository carRepository, MotorcycleRepository motorcycleRepository) {
-        this.carRepository = carRepository;
-        this.motorcycleRepository = motorcycleRepository;
+    public VehicleBootstrap(ParkingTicketRepository parkingTicketRepository,
+                            CalendarGuard calendarGuard,
+                            CalculatorParkingGuard calculatorParkingGuard ) {
+        this.parkingTicketRepository = parkingTicketRepository;
+        this.calendarGuard = calendarGuard;
+        this.calculatorParkingGuard = calculatorParkingGuard;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        ParkingTicket parkingTicket = new ParkingTicket();
-        parkingTicket.setDateArrive(java.util.Calendar.getInstance().getTime());
         System.err.println("#### LOADING DATA ON BOOTSTRAP #####");
-        if(carRepository.count().block() == 0){
-            for(int i=0; i<3; i++){
-                Car car = new Car("SED12"+i, VehicleType.CAR, true);
-                car.addParkingTicket(parkingTicket);
-                carRepository.save(car).block();
-            }
-        }
+        Calendar date  = new GregorianCalendar(2018,1, 8, 17, 56, 38);
+        Date dateOut = date.getTime();
+        if(parkingTicketRepository.count().block() == 0){
+            Car car = new Car("SED12", VehicleType.CAR, true);
+            ParkingTicket parkingTicketCar =
+                    new ParkingTicket(car.getLicense(), car.getType(), calendarGuard.getActualDate(), dateOut, calculatorParkingGuard.getCountHours(calendarGuard.getActualDate(), dateOut), 5000);
+            parkingTicketRepository.save(parkingTicketCar).block();
 
-        if(motorcycleRepository.count().block()==0){
             Motorcycle motor = new Motorcycle("sed123", VehicleType.MOTORCYCLE, 150, true);
-            motor.addParkingTicket(parkingTicket);
-            motorcycleRepository.save(motor).block();
+            ParkingTicket parkingTicketMotor =
+                    new ParkingTicket(motor.getLicense(), motor.getType(), calendarGuard.getActualDate(), dateOut, calculatorParkingGuard.getCountHours(calendarGuard.getActualDate(), dateOut), 1000);
+            parkingTicketRepository.save(parkingTicketMotor).block();
         }
-        ParkingTicket parkingTicket1 = new ParkingTicket();
-        Date date1  = Calendar.getInstance().getTime();
-        Calendar b  = new GregorianCalendar(2018,1, 7, 17, 56, 38);
-        Date date2 = b.getTime();
-        //System.err.println(parkingTicket1.chargeParkingTicket(date1, date2));
     }
 }
