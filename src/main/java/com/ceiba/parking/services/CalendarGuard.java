@@ -1,4 +1,4 @@
-package com.ceiba.parking.domain;
+package com.ceiba.parking.services;
 
 import org.springframework.stereotype.Service;
 

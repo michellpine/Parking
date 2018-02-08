@@ -1,6 +1,5 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.domain.CalendarGuard;
 import org.junit.Test;
 import org.mockito.Mockito;
 

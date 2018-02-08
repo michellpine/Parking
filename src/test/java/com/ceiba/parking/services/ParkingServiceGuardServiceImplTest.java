@@ -1,19 +1,8 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.domain.CalendarGuard;
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.VehicleType;
 import com.ceiba.parking.repositories.CarRepository;
 import com.ceiba.parking.repositories.MotorcycleRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
 
-import java.util.Calendar;
-
-import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
-import static com.ceiba.parking.builder.MotorcycleTestDataBuilder.aMotorcycle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

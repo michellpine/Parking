@@ -1,10 +1,10 @@
 package com.ceiba.parking.domain;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class ParkingTicket {
 
     protected Date dateArrive;

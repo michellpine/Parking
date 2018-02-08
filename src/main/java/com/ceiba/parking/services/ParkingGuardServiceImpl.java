@@ -6,7 +6,6 @@ import com.ceiba.parking.repositories.MotorcycleRepository;
 import exception.ParkingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -21,11 +20,10 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     private static final int MOTORCYCLE_CELLS = 9;
 
     public ParkingGuardServiceImpl(CarRepository carRepository, MotorcycleRepository motorcycleRepository,
-                                   CalendarGuard calendarGuard, ParkingTicket parkingTicket) {
+                                   CalendarGuard calendarGuard) {
         this.carRepository = carRepository;
         this.motorcycleRepository = motorcycleRepository;
         this.calendarGuard = calendarGuard;
-        this.parkingTicket = parkingTicket;
     }
 
     @Override
@@ -45,13 +43,13 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         if (carRepository.count().block() > CAR_CELLS) {
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
         }
-        parkingTicket.setDateArrive(calendarGuard.getActualDate());
+        //parkingTicket.setDateArrive(calendarGuard.getActualDate());
         return carRepository.save(vehicle);
     }
 
     @Override
     public void outCar(Car car) {
-        parkingTicket.setDateOut(calendarGuard.getActualDate());
+        //parkingTicket.setDateOut(calendarGuard.getActualDate());
         car.setParking(false);
     }
 
