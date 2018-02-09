@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 @Service
 public class ParkingGuardServiceImpl implements ParkingGuardService {
 
@@ -24,7 +27,6 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         this.calculatorParkingGuard = calculatorParkingGuard;
     }
 
-    @Override
     public boolean canEnterVehicle(Vehicle vehicle) {
         if (vehicle.getLicense().toUpperCase().startsWith("A")
                 && calendarGuard.getActualWeekDay() != java.util.Calendar.MONDAY
@@ -64,15 +66,20 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     }
 
     @Override
-    public Mono<ParkingTicket> outVehicle(ParkingTicket ticket) {
+    public Mono<ParkingTicket> outCar(ParkingTicket ticket, Car car) {
         ticket.setDateOut(calendarGuard.getActualDay());
         ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
-        ticket.getCar().setParking(true);
-        /*if(ticket.getMotorcycle().getEngine()>500){
-            ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType())+2000);
-        }
-        */
-        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType()));
+        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), 0));
+        ticket.getCar().setParking(false);
+        return parkingTicketRepository.save(ticket);
+    }
+
+    @Override
+    public Mono<ParkingTicket> outMotorcycle(ParkingTicket ticket, Motorcycle motorcycle) {
+        ticket.setDateOut(calendarGuard.getActualDay());
+        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
+        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), motorcycle.getEngine()));
+        ticket.getMotorcycle().setParking(false);
         return parkingTicketRepository.save(ticket);
     }
 

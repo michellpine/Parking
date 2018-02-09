@@ -82,7 +82,7 @@ public class CalculatorParkingGuardTest {
         VehicleType type = VehicleType.MOTORCYCLE;
 
         //Act
-        int result = calculatorParkingGuard.calculateValueToPay(hours, type, 600);
+        int result = calculatorParkingGuard.calculateValueToPay(hours, type, 550);
 
         //Assert
         assertEquals(9500, result);

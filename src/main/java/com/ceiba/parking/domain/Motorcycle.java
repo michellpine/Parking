@@ -1,10 +1,15 @@
 package com.ceiba.parking.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.UUID;
 
 @Document
 public class Motorcycle extends Vehicle{
 
+    @Id
+    protected String id= UUID.randomUUID().toString();
     private int engine;
 
     public Motorcycle(){

@@ -21,9 +21,9 @@ public class MotorcycleController {
         return parkingGuardService.enterMotorcycle(moto);
     }
 
-    @PutMapping("/api/motorcycles/{id}")
-    Mono<ParkingTicket> outMotorcycle(@PathVariable String id, @RequestBody ParkingTicket parkingTicket){
+    @PatchMapping("/api/motorcycles/{id}")
+    Mono<ParkingTicket> outMotorcycle(@PathVariable String id, @RequestBody Motorcycle motorcycle){
         ParkingTicket ticketUpdate = parkingGuardService.findRegister(id);
-        return parkingGuardService.outVehicle(ticketUpdate);
+        return parkingGuardService.outMotorcycle(ticketUpdate, motorcycle);
     }
 }

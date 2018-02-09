@@ -3,16 +3,14 @@ package com.ceiba.parking.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.UUID;
 
 @Document
 public class ParkingTicket {
 
     @Id
-    protected String id= UUID.randomUUID().toString();;
+    protected String id= UUID.randomUUID().toString();
     protected String license;
     protected VehicleType vehicleType;
 
@@ -37,16 +35,18 @@ public class ParkingTicket {
         this.valueToPay = valueToPay;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public ParkingTicket addCar(Car car){
+        this.car = car;
+        return this;
+    }
+
+    public ParkingTicket addMotorcycle(Motorcycle motorcycle){
+        this.motorcycle = motorcycle;
+        return  this;
     }
 
     public String getDateArrive() {
         return dateArrive;
-    }
-
-    public void setDateArrive(String dateArrive) {
-        this.dateArrive = dateArrive;
     }
 
     public String getDateOut() {
@@ -88,15 +88,4 @@ public class ParkingTicket {
     public void setMotorcycle(Motorcycle motorcycle) {
         this.motorcycle = motorcycle;
     }
-
-    public ParkingTicket addCar(Car car){
-        this.car = car;
-        return this;
-    }
-
-    public ParkingTicket addMotorcycle(Motorcycle motorcycle){
-        this.motorcycle = motorcycle;
-        return  this;
-    }
-
 }

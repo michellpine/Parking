@@ -27,8 +27,8 @@ public class CarController {
     }
 
     @PatchMapping("/api/cars/{id}")
-    Mono<ParkingTicket> outCar(@PathVariable String id, @RequestBody ParkingTicket parkingTicket){
+    Mono<ParkingTicket> outCar(@PathVariable String id, @RequestBody Car car){
         ParkingTicket ticketUpdate = parkingGuardService.findRegister(id);
-        return parkingGuardService.outVehicle(ticketUpdate);
+        return parkingGuardService.outCar(ticketUpdate, car);
     }
 }

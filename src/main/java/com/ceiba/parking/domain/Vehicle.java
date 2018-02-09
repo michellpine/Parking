@@ -1,5 +1,8 @@
 package com.ceiba.parking.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public abstract class Vehicle {
     protected String license;
     protected VehicleType type;
@@ -16,7 +19,6 @@ public abstract class Vehicle {
     }
 
     //Getters and Setters
-
     public String getLicense() {
         return license;
     }
