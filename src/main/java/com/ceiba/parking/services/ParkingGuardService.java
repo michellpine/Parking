@@ -6,7 +6,6 @@ import com.ceiba.parking.domain.ParkingTicket;
 import com.ceiba.parking.domain.Vehicle;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
 
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
