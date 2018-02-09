@@ -2,22 +2,16 @@ package com.ceiba.parking.services;
 
 import com.ceiba.parking.domain.Car;
 import com.ceiba.parking.domain.Motorcycle;
+import com.ceiba.parking.domain.ParkingTicket;
 import com.ceiba.parking.domain.Vehicle;
-import org.reactivestreams.Publisher;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
-    Mono<Void> saveCar(Publisher<Car> vehicle);
-    Flux<Car> showCars();
-    Mono<Car> findCar(String id);
-    void outCar(Car car);
+    Mono<ParkingTicket> enterCar(Car vehicle);
+    Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle);
 
-    Mono<Void> saveMotorcycle(Publisher<Motorcycle> vehicle);
-    Flux<Motorcycle> showMotorcycles();
-    Mono<Motorcycle> findMotorcycle(String id);
-    void outMotorcycle(Motorcycle motor);
+    ParkingTicket findRegister(String id);
+
+    Mono<ParkingTicket> outVehicle(ParkingTicket parkingTicket);
 }

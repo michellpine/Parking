@@ -1,41 +1,37 @@
 package com.ceiba.parking.bootstrap;
 
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.VehicleType;
-import com.ceiba.parking.repositories.CarRepository;
-import com.ceiba.parking.repositories.MotorcycleRepository;
+import com.ceiba.parking.domain.*;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
+import com.ceiba.parking.services.CalculatorParkingGuard;
+import com.ceiba.parking.services.CalendarGuard;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class VehicleBootstrap implements CommandLineRunner{
 
-    private final CarRepository carRepository;
-    private final MotorcycleRepository motorcycleRepository;
+    private final ParkingTicketRepository parkingTicketRepository;
+    private final CalendarGuard calendarGuard;
+    private final CalculatorParkingGuard calculatorParkingGuard;
 
-    public VehicleBootstrap(CarRepository carRepository, MotorcycleRepository motorcycleRepository) {
-        this.carRepository = carRepository;
-        this.motorcycleRepository = motorcycleRepository;
+    public VehicleBootstrap(ParkingTicketRepository parkingTicketRepository,
+                            CalendarGuard calendarGuard,
+                            CalculatorParkingGuard calculatorParkingGuard ) {
+        this.parkingTicketRepository = parkingTicketRepository;
+        this.calendarGuard = calendarGuard;
+        this.calculatorParkingGuard = calculatorParkingGuard;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("#### LOADING DATA ON BOOTSTRAP #####");
-        if(carRepository.count().block() == 0){
-            for(int i=0; i<3; i++){
-                Car car = new Car("SED12"+i, VehicleType.CAR, true);
-                carRepository.save(car).block();
-            }
-
-            System.out.println(("carros: "+ carRepository.count().block()));
+        System.err.println("#### LOADING DATA ON BOOTSTRAP #####");
+        if(parkingTicketRepository.count().block() == 0){
+            Car car = new Car("SED12", VehicleType.CAR, true);
+            ParkingTicket parkingTicketCar =
+                    new ParkingTicket(car.getLicense(), car.getType(), calendarGuard.getActualDay(),  calendarGuard.getActualDay(), 0, 5000);
+            parkingTicketCar.addCar(car);
+            parkingTicketRepository.save(parkingTicketCar).block();
         }
-
-        if(motorcycleRepository.count().block()==0){
-            Motorcycle motor = new Motorcycle("sed123", VehicleType.MOTORCYCLE, 150, true);
-            motorcycleRepository.save(motor).block();
-            System.out.println(("motos: "+ motorcycleRepository.count().block()));
-        }
-
     }
 }

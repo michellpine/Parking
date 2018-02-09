@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-02-09T02:49:52" hostname="MacBook-Air-de-usuario.local" time="0.073">
+  <properties/>
+  <testcase name="licenseVehicleBeginToA_DayIsMonday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.06"/>
+  <testcase name="licenseVehicleBeginToA_DayIsSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
+  <testcase name="canEnterVehicle" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.004"/>
+  <testcase name="licenseVehicleBeginToA_DayIsDifferentToMondayAndSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

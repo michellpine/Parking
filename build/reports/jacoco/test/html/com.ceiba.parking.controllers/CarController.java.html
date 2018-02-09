@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CarController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Parking</a> &gt; <a href="index.source.html" class="el_package">com.ceiba.parking.controllers</a> &gt; <span class="el_source">CarController.java</span></div><h1>CarController.java</h1><pre class="source lang-java linenums">package com.ceiba.parking.controllers;
+
+import com.ceiba.parking.domain.Car;
+import com.ceiba.parking.domain.ParkingTicket;
+import com.ceiba.parking.services.ParkingGuardService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+@RestController
+public class CarController {
+    private ParkingGuardService parkingGuardService;
+
+<span class="nc" id="L15">    public CarController(ParkingGuardService parkingGuardService) {</span>
+<span class="nc" id="L16">        this.parkingGuardService = parkingGuardService;</span>
+<span class="nc" id="L17">    }</span>
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(&quot;/api/cars&quot;)
+    Mono&lt;ParkingTicket&gt; enterCar(@RequestBody Car car){
+<span class="nc" id="L22">        return parkingGuardService.enterCar(car);</span>
+    }
+
+    @GetMapping(&quot;/api/cars&quot;)
+    Flux&lt;ParkingTicket&gt; list(){
+<span class="nc" id="L27">        return parkingGuardService.showAllRegisters();</span>
+    }
+
+    @GetMapping(&quot;/api/cars/{id}&quot;)
+    Mono&lt;ParkingTicket&gt; getById(@PathVariable String id){
+<span class="nc" id="L32">        return parkingGuardService.findRegister(id);</span>
+    }
+
+    @PutMapping(&quot;/api/cars/{id}&quot;)
+    Mono&lt;ParkingTicket&gt; outCar(@PathVariable String id, @RequestBody ParkingTicket parkingTicket){
+<span class="nc" id="L37">        ParkingTicket ticket = parkingGuardService.findRegister(id).block();</span>
+<span class="nc" id="L38">        return parkingGuardService.outVehicle(ticket);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.8.201612092310</span></div></body></html>

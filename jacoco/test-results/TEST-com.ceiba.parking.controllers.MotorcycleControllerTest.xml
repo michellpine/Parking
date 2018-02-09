@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ceiba.parking.controllers.MotorcycleControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-02-09T02:49:50" hostname="MacBook-Air-de-usuario.local" time="2.093">
+  <properties/>
+  <testcase name="createMotorcycle" classname="com.ceiba.parking.controllers.MotorcycleControllerTest" time="2.093"/>
+  <system-out><![CDATA[2018-02-08 21:49:51.415  INFO 6021 --- [       Thread-8] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-02-08T21:49:51.414-0500 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:64809 #6 (6 connections now open)
+2018-02-08 21:49:51.592  INFO 6021 --- [       Thread-8] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-02-08T21:49:51.592-0500 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:64810 #7 (7 connections now open)
+2018-02-08 21:49:51.632  INFO 6021 --- [       Thread-8] o.s.b.a.mongo.embedded.EmbeddedMongo     : 2018-02-08T21:49:51.632-0500 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:64811 #8 (8 connections now open)
+2018-02-08 21:49:51.757  INFO 6021 --- [    Test worker] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@5cf8ab32: startup date [Thu Feb 08 21:49:51 COT 2018]; root of context hierarchy
+2018-02-08 21:49:51.854  INFO 6021 --- [    Test worker] s.w.r.r.m.a.RequestMappingHandlerMapping : Mapped "{[/api/motorcycles],methods=[POST]}" onto reactor.core.publisher.Mono<com.ceiba.parking.domain.ParkingTicket> com.ceiba.parking.controllers.MotorcycleController.createMotorcycle(com.ceiba.parking.domain.Motorcycle)
+2018-02-08 21:49:51.859  INFO 6021 --- [    Test worker] s.w.r.r.m.a.RequestMappingHandlerMapping : Mapped "{[/api/motorcycles/{id}],methods=[PUT]}" onto reactor.core.publisher.Mono<com.ceiba.parking.domain.ParkingTicket> com.ceiba.parking.controllers.MotorcycleController.outMotorcycle(java.lang.String,com.ceiba.parking.domain.ParkingTicket)
+2018-02-08 21:49:51.922  INFO 6021 --- [    Test worker] o.s.w.r.r.m.a.ControllerMethodResolver   : Looking for @ControllerAdvice: org.springframework.context.annotation.AnnotationConfigApplicationContext@5cf8ab32: startup date [Thu Feb 08 21:49:51 COT 2018]; root of context hierarchy
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

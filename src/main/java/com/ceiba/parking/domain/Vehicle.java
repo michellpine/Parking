@@ -16,6 +16,7 @@ public abstract class Vehicle {
     }
 
     //Getters and Setters
+
     public String getLicense() {
         return license;
     }
@@ -31,4 +32,5 @@ public abstract class Vehicle {
     public void setParking(boolean parking) {
         isParking = parking;
     }
+
 }

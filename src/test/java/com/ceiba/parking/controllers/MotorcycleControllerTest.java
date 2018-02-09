@@ -2,7 +2,7 @@ package com.ceiba.parking.controllers;
 
 import com.ceiba.parking.domain.Motorcycle;
 import com.ceiba.parking.domain.VehicleType;
-import com.ceiba.parking.repositories.MotorcycleRepository;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
 import com.ceiba.parking.services.ParkingGuardService;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class MotorcycleControllerTest {
     ParkingGuardService parkingGuardService;
     WebTestClient webTestClient;
 
-    MotorcycleRepository motorcycleRepository;
+    ParkingTicketRepository motorcycleRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -30,43 +30,9 @@ public class MotorcycleControllerTest {
         motorcycleController = new MotorcycleController(parkingGuardService);
         webTestClient = WebTestClient.bindToController(motorcycleController).build();
 
-        motorcycleRepository = Mockito.mock(MotorcycleRepository.class);
+        motorcycleRepository = Mockito.mock(ParkingTicketRepository.class);
     }
 
-    @Test
-    public void listMotorcycles(){
-        Motorcycle motor = aMotorcycle()
-                .withLicense("ABC123")
-                .withType(VehicleType.MOTORCYCLE)
-                .withIsParking(true)
-                .build();
-        BDDMockito.given(parkingGuardService.showMotorcycles())
-                .willReturn(Flux.just(motor));
-
-        webTestClient.get()
-                .uri("/api/motorcycles")
-                .exchange()
-                .expectBodyList(Motorcycle.class)
-                .hasSize(1);
-    }
-
-
-    @Test
-    public void getById() {
-        Motorcycle motor = aMotorcycle()
-                .withLicense("ABC123")
-                .withType(VehicleType.MOTORCYCLE)
-                .withIsParking(true)
-                .build();
-        BDDMockito.given(parkingGuardService.findMotorcycle("someid"))
-                .willReturn(Mono.just(motor));
-
-        webTestClient.get()
-                .uri("/api/motorcycles/someid")
-                .exchange()
-                .expectBody(Motorcycle.class);
-    }
-/*
     @Test
     public void createMotorcycle() {
         Motorcycle motorcycle = new Motorcycle();
@@ -84,11 +50,15 @@ public class MotorcycleControllerTest {
         Mono<Motorcycle> motorcycleMono = Mono.just(motor);
 
         webTestClient.post()
-                .uri("/motorcycles/cars")
+                .uri("/api/motorcycles")
                 .body(motorcycleMono, Motorcycle.class)
                 .exchange()
                 .expectStatus()
                 .isCreated();
-    }*/
+    }
 
+
+    @Test
+    public void outMotorcycle() {
+    }
 }

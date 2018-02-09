@@ -3,6 +3,11 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="/fragment.java">
           <value>
             <set />
@@ -28,6 +33,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/CalendarGuard.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Car.java">
           <value>
             <set />
@@ -38,7 +48,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Parking.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/ParkingGuard.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/ParkingTicket.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/Vehicle.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/repositories/ParkingTicketRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/services/CalculatorParkingGuard.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/services/CalendarGuard.java">
           <value>
             <set />
           </value>
@@ -49,6 +89,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/services/ParkingGuardServiceImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/exception/ParkingException.java">
           <value>
             <set />
           </value>
@@ -84,6 +129,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/domain/VehicleTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/services/CalculatorParkingGuardTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/services/CalendarGuardTest.java">
           <value>
             <set />
           </value>

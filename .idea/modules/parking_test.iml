@@ -99,4 +99,8 @@
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-compress:1.10" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Parking_main" />
+  <component name="sonarModuleSettings">
+    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
+    <option name="serverName" value="&lt;PROJECT&gt;" />
+  </component>
 </module>

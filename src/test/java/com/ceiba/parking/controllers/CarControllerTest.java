@@ -1,12 +1,12 @@
 package com.ceiba.parking.controllers;
 
 import com.ceiba.parking.domain.Car;
+import com.ceiba.parking.domain.ParkingTicket;
 import com.ceiba.parking.domain.VehicleType;
-import com.ceiba.parking.repositories.CarRepository;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
 import com.ceiba.parking.services.ParkingGuardService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.reactivestreams.Publisher;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -15,14 +15,17 @@ import reactor.core.publisher.Mono;
 
 import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+
 
 public class CarControllerTest {
 
     CarController carController;
     ParkingGuardService parkingGuardService;
     WebTestClient webTestClient;
-
-    CarRepository carRepository;
+    ParkingTicketRepository parkingTicketRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -30,47 +33,13 @@ public class CarControllerTest {
         carController = new CarController(parkingGuardService);
         webTestClient = WebTestClient.bindToController(carController).build();
 
-        carRepository = Mockito.mock(CarRepository.class);
+        parkingTicketRepository = Mockito.mock(ParkingTicketRepository.class);
     }
 
     @Test
-    public void listCars() {
-        Car car = aCar()
-                .withLicense("XCD123")
-                .withType(VehicleType.CAR)
-                .withIsParking(true)
-                .build();
-        BDDMockito.given(parkingGuardService.showCars())
-                .willReturn(Flux.just(car));
-
-        webTestClient.get()
-                .uri("/api/cars")
-                .exchange()
-                .expectBodyList(Car.class)
-                .hasSize(1);
-    }
-
-    @Test
-    public void getById() {
-        Car car = aCar()
-                .withLicense("XCD123")
-                .withType(VehicleType.CAR)
-                .withIsParking(true)
-                .build();
-        BDDMockito.given(parkingGuardService.findCar("someid"))
-                .willReturn(Mono.just(car));
-
-        webTestClient.get()
-                .uri("/api/cars/someid")
-                .exchange()
-                .expectBody(Car.class);
-    }
-
-    @Test
-    public void createCar() {
+    public void enterCar() {
         Car car = new Car();
-
-        BDDMockito.given(carRepository.saveAll(any(Publisher.class)))
+        given(parkingTicketRepository.saveAll(any(Publisher.class)))
                 .willReturn(Flux.just(car));
 
         Car car1 = aCar()
@@ -88,4 +57,63 @@ public class CarControllerTest {
                 .expectStatus()
                 .isCreated();
     }
+
+    @Test
+    public void getRegister() {
+        ParkingTicket parkingTicket = new ParkingTicket("XCD124", VehicleType.CAR, "17-Dec-2018 11:00:38", null, 0, 0);
+
+        given(parkingTicketRepository.findById("someid"))
+                .willReturn(Mono.just(parkingTicket));
+
+        webTestClient.get()
+                .uri("/api/cars/someid")
+                .exchange()
+                .expectBody(ParkingTicket.class);
+    }
+
+    @Test
+    public void outCarWithChange() {
+        ParkingTicket parkingTicket = new ParkingTicket("XCD124", VehicleType.CAR, "17-Dec-2018 11:00:38", null, 0, 0);
+
+        given(parkingTicketRepository.findById(anyString()))
+                .willReturn(Mono.just(parkingTicket));
+
+        given(parkingTicketRepository.save(any(ParkingTicket.class)))
+                .willReturn(Mono.just(parkingTicket));
+
+        parkingTicket.setDateOut("17-Dec-2018 15:00:38");
+        Mono<ParkingTicket> catToUpdateMono = Mono.just(parkingTicket);
+
+        webTestClient.patch()
+                .uri("/api/cars/asdfasdf")
+                .body(catToUpdateMono, ParkingTicket.class)
+                .exchange()
+                .expectStatus()
+                .isOk();
+
+        verify(parkingTicketRepository, never()).save(any());
+    }
+
+    @Test
+    public void outCarWithNoChange() {
+        ParkingTicket parkingTicket = new ParkingTicket("XCD124", VehicleType.CAR, "17-Dec-2018 11:00:38", null, 0, 0);
+
+        given(parkingTicketRepository.findById(anyString()))
+                .willReturn(Mono.just(parkingTicket));
+
+        given(parkingTicketRepository.save(any(ParkingTicket.class)))
+                .willReturn(Mono.just(parkingTicket));
+
+        Mono<ParkingTicket> catToUpdateMono = Mono.just(parkingTicket);
+
+        webTestClient.patch()
+                .uri("/api/cars/asdfasdf")
+                .body(catToUpdateMono, ParkingTicket.class)
+                .exchange()
+                .expectStatus()
+                .isOk();
+
+        verify(parkingTicketRepository, never()).save(any());
+    }
+
 }

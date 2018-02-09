@@ -1,90 +1,78 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.Vehicle;
-import com.ceiba.parking.repositories.CarRepository;
-import com.ceiba.parking.repositories.MotorcycleRepository;
-import org.reactivestreams.Publisher;
+import com.ceiba.parking.domain.*;
+import com.ceiba.parking.repositories.ParkingTicketRepository;
+import exception.ParkingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class ParkingGuardServiceImpl implements ParkingGuardService {
 
     private CalendarGuard calendarGuard;
-    private CarRepository carRepository;
-    private MotorcycleRepository motorcycleRepository;
+    private CalculatorParkingGuard calculatorParkingGuard;
+    private ParkingTicketRepository parkingTicketRepository;
 
-    private static final int CAR_CELLS = 19;
-    private static final int MOTORCYCLE_CELLS = 9;
+    static final int CAR_CELLS = 19;
+    static final int MOTORCYCLE_CELLS = 9;
 
-    public ParkingGuardServiceImpl(CarRepository carRepository, MotorcycleRepository motorcycleRepository, CalendarGuard calendarGuard) {
-        this.carRepository = carRepository;
-        this.motorcycleRepository = motorcycleRepository;
-        this.calendarGuard = calendarGuard;
+    public ParkingGuardServiceImpl(ParkingTicketRepository parkingTicketRepository,
+                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {
+        this.parkingTicketRepository = parkingTicketRepository;
+        this.calendarGuard          = calendarGuard;
+        this.calculatorParkingGuard = calculatorParkingGuard;
     }
 
     @Override
     public boolean canEnterVehicle(Vehicle vehicle) {
         if (vehicle.getLicense().toUpperCase().startsWith("A")
-                && calendarGuard.getActualDay() != java.util.Calendar.MONDAY
-                && calendarGuard.getActualDay() != java.util.Calendar.SUNDAY) {
-            throw new IllegalArgumentException("Vehicle cannot enter, license begin for A and today is not available day for it");
+                && calendarGuard.getActualWeekDay() != java.util.Calendar.MONDAY
+                && calendarGuard.getActualWeekDay() != java.util.Calendar.SUNDAY) {
+            throw new ParkingException("Vehicle cannot enter, license begin for A and today is not available day for it");
         }
         return true;
     }
 
-    //Cars Responsaility
     @Override
     @Transactional
-    public Mono<Void> saveCar(Publisher<Car> vehicle) {
-        if (carRepository.count().block() > CAR_CELLS) {
-            throw new IllegalArgumentException("Vehicle cannot enter, there are not more cells available for cars");
+    public Mono<ParkingTicket> enterCar(Car vehicle) {
+        /*if (howManyCars(vehicle) > CAR_CELLS) {
+            throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
+        }*/
+        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
+        parkingTicket.addCar(vehicle);
+        if(!canEnterVehicle(vehicle)) {
+            return null;
         }
-        return carRepository.saveAll(vehicle).then();
+        return parkingTicketRepository.save(parkingTicket);
     }
 
-    @Override
-    public Flux<Car> showCars() {
-        return carRepository.findAll();
-    }
-
-    @Override
-    public Mono<Car> findCar(String id) {
-        return carRepository.findById(id);
-    }
-
-    @Override
-    public void outCar(Car car) {
-        car.setParking(false);
-    }
-
-
-    //Motorcycle Responsaility
     @Override
     @Transactional
-    public Mono<Void> saveMotorcycle(Publisher<Motorcycle> vehicle) {
-        if(motorcycleRepository.count().block()>MOTORCYCLE_CELLS){
-            throw new IllegalArgumentException("Vehicle cannot enter, there are not more cells available for motorcycles");
+    public Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle) {
+        /*if (howManyCars(vehicle) > CAR_CELLS) {
+            throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
+        }*/
+        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
+        parkingTicket.addMotorcycle(vehicle);
+        if(!canEnterVehicle(vehicle)) {
+            return null;
         }
-        return motorcycleRepository.saveAll(vehicle).then();
+        return parkingTicketRepository.save(parkingTicket);
     }
 
     @Override
-    public Mono<Motorcycle> findMotorcycle(String id) {
-        return motorcycleRepository.findById(id);
+    public ParkingTicket findRegister(String id) {
+        return parkingTicketRepository.findById(id).block();
     }
 
     @Override
-    public Flux<Motorcycle> showMotorcycles() {
-        return motorcycleRepository.findAll();
+    public Mono<ParkingTicket> outVehicle(ParkingTicket ticket) {
+        ticket.setDateOut(calendarGuard.getActualDay());
+        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
+        //ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(),ticket.getMotorcycle().getEngine()));
+        return parkingTicketRepository.save(ticket);
     }
 
-    @Override
-    public void outMotorcycle(Motorcycle motorcycle) {
-        motorcycle.setParking(false);
-    }
 }

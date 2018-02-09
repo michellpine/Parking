@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParkingTicket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Parking</a> &gt; <a href="index.source.html" class="el_package">com.ceiba.parking.domain</a> &gt; <span class="el_source">ParkingTicket.java</span></div><h1>ParkingTicket.java</h1><pre class="source lang-java linenums">package com.ceiba.parking.domain;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+
+@Document
+public class ParkingTicket {
+
+    @Id
+    protected String id;
+    protected String license;
+    protected VehicleType vehicleType;
+
+    @NotNull
+    protected String dateArrive;
+    protected String dateOut;
+    protected int totalHours;
+    protected int valueToPay;
+
+    @NotBlank
+    protected Car car;
+
+    @NotBlank
+    protected Motorcycle motorcycle;
+
+<span class="nc" id="L30">    public ParkingTicket() {</span>
+<span class="nc" id="L31">    }</span>
+
+<span class="nc" id="L33">    public ParkingTicket(String license, VehicleType vehicleType, String dateArrive, String dateOut, int totalHours, int valueToPay) {</span>
+<span class="nc" id="L34">        this.license = license;</span>
+<span class="nc" id="L35">        this.vehicleType = vehicleType;</span>
+<span class="nc" id="L36">        this.dateArrive = dateArrive;</span>
+<span class="nc" id="L37">        this.dateOut = dateOut;</span>
+<span class="nc" id="L38">        this.totalHours = totalHours;</span>
+<span class="nc" id="L39">        this.valueToPay = valueToPay;</span>
+<span class="nc" id="L40">    }</span>
+
+    public String getId() {
+<span class="nc" id="L43">        return id;</span>
+    }
+
+    public String getDateArrive() {
+<span class="nc" id="L47">        return dateArrive;</span>
+    }
+
+    public void setDateArrive(String dateArrive) {
+<span class="nc" id="L51">        this.dateArrive = dateArrive;</span>
+<span class="nc" id="L52">    }</span>
+
+    public String getDateOut() {
+<span class="nc" id="L55">        return dateOut;</span>
+    }
+
+    public void setDateOut(String dateOut) {
+<span class="nc" id="L59">        this.dateOut = dateOut;</span>
+<span class="nc" id="L60">    }</span>
+
+    public VehicleType getVehicleType() {
+<span class="nc" id="L63">        return vehicleType;</span>
+    }
+
+    public int getTotalHours() {
+<span class="nc" id="L67">        return totalHours;</span>
+    }
+
+    public void setTotalHours(int totalHours) {
+<span class="nc" id="L71">        this.totalHours = totalHours;</span>
+<span class="nc" id="L72">    }</span>
+
+    public int getValueToPay() {
+<span class="nc" id="L75">        return valueToPay;</span>
+    }
+
+    public void setValueToPay(int valueToPay) {
+<span class="nc" id="L79">        this.valueToPay = valueToPay;</span>
+<span class="nc" id="L80">    }</span>
+
+    public Car getCar() {
+<span class="nc" id="L83">        return car;</span>
+    }
+
+    public void setCar(Car car) {
+<span class="nc" id="L87">        this.car = car;</span>
+<span class="nc" id="L88">    }</span>
+
+    public Motorcycle getMotorcycle() {
+<span class="nc" id="L91">        return motorcycle;</span>
+    }
+
+    public void setMotorcycle(Motorcycle motorcycle) {
+<span class="nc" id="L95">        this.motorcycle = motorcycle;</span>
+<span class="nc" id="L96">    }</span>
+
+    public ParkingTicket addCar(Car car){
+<span class="nc" id="L99">        this.car = car;</span>
+<span class="nc" id="L100">        return this;</span>
+    }
+
+    public ParkingTicket addMotorcycle(Motorcycle motorcycle){
+<span class="nc" id="L104">        this.motorcycle = motorcycle;</span>
+<span class="nc" id="L105">        return  this;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.8.201612092310</span></div></body></html>
