@@ -6,12 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.UUID;
 
 @Document
 public class ParkingTicket {
 
     @Id
-    protected String id;
+    protected String id= UUID.randomUUID().toString();;
     protected String license;
     protected VehicleType vehicleType;
 

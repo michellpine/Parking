@@ -37,9 +37,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     @Override
     @Transactional
     public Mono<ParkingTicket> enterCar(Car vehicle) {
-        /*if (howManyCars(vehicle) > CAR_CELLS) {
-            throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
-        }*/
+        //throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
         ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
         parkingTicket.addCar(vehicle);
         if(!canEnterVehicle(vehicle)) {
@@ -51,9 +49,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     @Override
     @Transactional
     public Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle) {
-        /*if (howManyCars(vehicle) > CAR_CELLS) {
-            throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
-        }*/
+        //throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
         ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
         parkingTicket.addMotorcycle(vehicle);
         if(!canEnterVehicle(vehicle)) {
@@ -71,7 +67,12 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     public Mono<ParkingTicket> outVehicle(ParkingTicket ticket) {
         ticket.setDateOut(calendarGuard.getActualDay());
         ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
-        //ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(),ticket.getMotorcycle().getEngine()));
+        ticket.getCar().setParking(true);
+        /*if(ticket.getMotorcycle().getEngine()>500){
+            ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType())+2000);
+        }
+        */
+        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType()));
         return parkingTicketRepository.save(ticket);
     }
 

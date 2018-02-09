@@ -24,8 +24,8 @@ public class CalculatorParkingGuard {
         }
     }
 
-    public int calculateValueToPay(int hours, VehicleType type, int engine){
-        int valueToPay = 0;
+    public int calculateValueToPay(int hours, VehicleType type){
+        int valueToPay;
         int daysToPay = (hours/24);
         int hoursToPay = 0;
         if((hours % 24)>=9 && (hours % 24)<=23) {
@@ -33,15 +33,10 @@ public class CalculatorParkingGuard {
         }else {
             hoursToPay = hours % 24;
         }
-
-        if(type.equals(VehicleType.MOTORCYCLE) && engine>=500){
-            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE) + 2000;
-        }
-        else {
-            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE);
-        }
         if(type.equals(VehicleType.CAR)){
             valueToPay = (daysToPay*VALUE_DAY_CAR)+(hoursToPay*VALUE_HOUR_CAR);
+        }else{
+            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE);
         }
         return valueToPay;
     }
