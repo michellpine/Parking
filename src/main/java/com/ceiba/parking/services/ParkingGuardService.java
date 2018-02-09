@@ -1,9 +1,6 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
-import com.ceiba.parking.domain.ParkingTicket;
-import com.ceiba.parking.domain.Vehicle;
+import com.ceiba.parking.domain.*;
 import reactor.core.publisher.Mono;
 
 
@@ -12,7 +9,10 @@ public interface ParkingGuardService {
     Mono<ParkingTicket> enterCar(Car vehicle);
     Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle);
 
-    ParkingTicket findRegister(String id);
+    int howManyCars();
+    int howManyMotorcycles();
+
+    ParkingTicket findParkingTicket(String id);
 
     Mono<ParkingTicket> outCar(ParkingTicket parkingTicket, Car car);
     Mono<ParkingTicket> outMotorcycle(ParkingTicket parkingTicket, Motorcycle motorcycle);

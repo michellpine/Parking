@@ -21,14 +21,9 @@ public class CarController {
         return parkingGuardService.enterCar(car);
     }
 
-    @GetMapping("/api/cars/{id}")
-    ParkingTicket getById(@PathVariable String id){
-        return parkingGuardService.findRegister(id);
-    }
-
     @PatchMapping("/api/cars/{id}")
     Mono<ParkingTicket> outCar(@PathVariable String id, @RequestBody Car car){
-        ParkingTicket ticketUpdate = parkingGuardService.findRegister(id);
+        ParkingTicket ticketUpdate = parkingGuardService.findParkingTicket(id);
         return parkingGuardService.outCar(ticketUpdate, car);
     }
 }

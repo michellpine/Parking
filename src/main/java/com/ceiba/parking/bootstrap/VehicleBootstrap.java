@@ -13,12 +13,14 @@ public class VehicleBootstrap implements CommandLineRunner{
 
     private final ParkingTicketRepository parkingTicketRepository;
     private final CalendarGuard calendarGuard;
+    private final CalculatorParkingGuard calculatorParkingGuard;
 
     public VehicleBootstrap(ParkingTicketRepository parkingTicketRepository,
                             CalendarGuard calendarGuard,
                             CalculatorParkingGuard calculatorParkingGuard ) {
         this.parkingTicketRepository = parkingTicketRepository;
         this.calendarGuard = calendarGuard;
+        this.calculatorParkingGuard = calculatorParkingGuard;
     }
 
     @Override

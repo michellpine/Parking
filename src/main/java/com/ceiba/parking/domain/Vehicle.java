@@ -19,6 +19,7 @@ public abstract class Vehicle {
     }
 
     //Getters and Setters
+
     public String getLicense() {
         return license;
     }

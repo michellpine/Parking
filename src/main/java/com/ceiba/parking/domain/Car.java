@@ -16,4 +16,8 @@ public class Car extends Vehicle {
     public Car(String license, VehicleType type, boolean isParking) {
         super(license, type, isParking);
     }
+
+    public String getId() {
+        return id;
+    }
 }
