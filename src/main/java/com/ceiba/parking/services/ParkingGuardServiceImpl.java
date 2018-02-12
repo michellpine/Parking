@@ -34,7 +34,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     @Transactional
     public Mono<ParkingTicket> enterVehicle(Vehicle vehicle) {
         validateEntryConditions(vehicle);
-        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
+        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDate(), null, 0, 0);
         parkingTicket.addVehicle(vehicle);
 
         return parkingTicketRepository.save(parkingTicket);
@@ -94,7 +94,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
 
     @Override
     public Mono<ParkingTicket> outVehicle(ParkingTicket ticket, Vehicle vehicle) {
-        ticket.setDateOut(calendarGuard.getActualDay());
+        ticket.setDateOut(calendarGuard.getActualDate());
         ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
         ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), vehicle.getEngine()));
         ticket.getVehicle().setParking(false);

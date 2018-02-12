@@ -18,7 +18,7 @@ public class CalendarGuard {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
 
-    public String getActualDay() {
+    public String getActualDate() {
         return DATE_FORMAT.format(Calendar.getInstance().getTime());
     }
 
