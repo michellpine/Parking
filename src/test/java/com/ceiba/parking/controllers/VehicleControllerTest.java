@@ -71,6 +71,7 @@ public class VehicleControllerTest {
                 .expectBody(ParkingTicket.class);
     }
 
+
     @Test
     public void outCarWithChange() {
         ParkingTicket parkingTicket = new ParkingTicket("XCD124", VehicleType.CAR, "17-Dec-2018 11:00:38", null, 0, 0);
@@ -107,7 +108,7 @@ public class VehicleControllerTest {
         Mono<ParkingTicket> catToUpdateMono = Mono.just(parkingTicket);
 
         webTestClient.patch()
-                .uri("/api/vehicles/asdfasdf")
+                .uri("/api/vehicles/asd")
                 .body(catToUpdateMono, ParkingTicket.class)
                 .exchange()
                 .expectStatus()

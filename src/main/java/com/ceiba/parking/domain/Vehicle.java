@@ -3,6 +3,8 @@ package com.ceiba.parking.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Document
@@ -10,9 +12,15 @@ public class Vehicle {
 
     @Id
     protected String id= UUID.randomUUID().toString();
+
+    @NotBlank
     protected String license;
+
+    @NotNull
     protected VehicleType type;
     protected int engine;
+
+    @NotNull
     protected boolean isParking;
 
     public Vehicle(){

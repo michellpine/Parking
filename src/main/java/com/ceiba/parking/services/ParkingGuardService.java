@@ -7,16 +7,16 @@ import java.util.List;
 
 
 public interface ParkingGuardService {
-    boolean canEnterVehicle(Vehicle vehicle);
-    Mono<ParkingTicket> enterVehicle(Vehicle vehicle);
 
-    int howManyCars();
-    int howManyMotorcycles();
+    Mono<ParkingTicket> enterVehicle(Vehicle vehicle);
+    void validateEntryConditions(Vehicle vehicle);
+    boolean canEnterVehicle(Vehicle vehicle);
+
+    int howManyVehiclesAreParking(VehicleType vehicleType);
 
     ParkingTicket findParkingTicket(String id);
     List<ParkingTicket> findParkingVehicles();
 
     Mono<ParkingTicket> outVehicle(ParkingTicket parkingTicket, Vehicle vehicle);
-
 
 }

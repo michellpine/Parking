@@ -25,12 +25,12 @@ public class CalendarGuardTest {
     @Test
     public void convertStringDateToDateFormat(){
         Calendar date1 = new GregorianCalendar(2018,11, 17, 11, 00, 38);
-        Date fake1 = date1.getTime();
+        Date fakeDate1 = date1.getTime();
         try{
             CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
-            when(calendarGuard.stringToDate("17-Dec-2018 11:00:38")).thenReturn(fake1);
+            when(calendarGuard.stringToDate("17-Dec-2018 11:00:38")).thenReturn(fakeDate1);
             Date result = calendarGuard.stringToDate("17-Dec-2018 11:00:38");
-            assertEquals(result, fake1);
+            assertEquals(result, fakeDate1);
         }catch (RuntimeException e){
             e.getMessage();
         }
