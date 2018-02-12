@@ -3,6 +3,8 @@ package com.ceiba.parking.services;
 import com.ceiba.parking.domain.*;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
@@ -16,4 +18,6 @@ public interface ParkingGuardService {
 
     Mono<ParkingTicket> outCar(ParkingTicket parkingTicket, Car car);
     Mono<ParkingTicket> outMotorcycle(ParkingTicket parkingTicket, Motorcycle motorcycle);
+
+    List<ParkingTicket> findParkingVehicles();
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 public class CarController {
     private ParkingGuardService parkingGuardService;
@@ -25,5 +27,10 @@ public class CarController {
     Mono<ParkingTicket> outCar(@PathVariable String id, @RequestBody Car car){
         ParkingTicket ticketUpdate = parkingGuardService.findParkingTicket(id);
         return parkingGuardService.outCar(ticketUpdate, car);
+    }
+
+    @GetMapping("/api/vehicles/")
+    List<ParkingTicket> getVehiclesParking(){
+        return parkingGuardService.findParkingVehicles();
     }
 }

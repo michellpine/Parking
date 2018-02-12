@@ -84,6 +84,14 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     }
 
     @Override
+    public List<ParkingTicket> findParkingVehicles() {
+        List<ParkingTicket> vehicles = new ArrayList<>();
+        parkingTicketRepository.findByCar_isParking(true).toIterable().forEach(vehicles::add);
+        parkingTicketRepository.findByMotorcycle_isParking(true).toIterable().forEach(vehicles::add);
+        return vehicles;
+    }
+
+    @Override
     public Mono<ParkingTicket> outCar(ParkingTicket ticket, Car car) {
         ticket.setDateOut(calendarGuard.getActualDay());
         ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
