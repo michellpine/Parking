@@ -11,10 +11,10 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @RestController
-public class VehicleController {
+public class ParkingController {
     private ParkingGuardService parkingGuardService;
 
-    public VehicleController(ParkingGuardService parkingGuardService) {
+    public ParkingController(ParkingGuardService parkingGuardService) {
         this.parkingGuardService = parkingGuardService;
     }
 

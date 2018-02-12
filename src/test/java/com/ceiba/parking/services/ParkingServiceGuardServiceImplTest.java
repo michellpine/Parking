@@ -9,15 +9,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import reactor.core.publisher.Flux;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import static com.ceiba.parking.builder.VehicleTestDataBuilder.aVehicle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 public class ParkingServiceGuardServiceImplTest {
 

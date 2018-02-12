@@ -20,9 +20,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 
-public class VehicleControllerTest {
+public class ParkingControllerTest {
 
-    VehicleController vehicleController;
+    ParkingController parkingController;
     ParkingGuardService parkingGuardService;
     WebTestClient webTestClient;
     ParkingTicketRepository parkingTicketRepository;
@@ -30,8 +30,8 @@ public class VehicleControllerTest {
     @Before
     public void setUp() throws Exception {
         parkingGuardService = Mockito.mock(ParkingGuardService.class);
-        vehicleController = new VehicleController(parkingGuardService);
-        webTestClient = WebTestClient.bindToController(vehicleController).build();
+        parkingController = new ParkingController(parkingGuardService);
+        webTestClient = WebTestClient.bindToController(parkingController).build();
 
         parkingTicketRepository = Mockito.mock(ParkingTicketRepository.class);
     }
