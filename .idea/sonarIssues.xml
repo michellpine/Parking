@@ -168,6 +168,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/domain/ParkingTicketTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/domain/VehicleTest.java">
           <value>
             <set />
