@@ -1,7 +1,7 @@
 package com.ceiba.parking.controllers;
 
-import com.ceiba.parking.domain.Car;
 import com.ceiba.parking.domain.ParkingTicket;
+import com.ceiba.parking.domain.Vehicle;
 import com.ceiba.parking.domain.VehicleType;
 import com.ceiba.parking.repositories.ParkingTicketRepository;
 import com.ceiba.parking.services.ParkingGuardService;
@@ -13,16 +13,16 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
+import static com.ceiba.parking.builder.VehicleTestDataBuilder.aVehicle;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 
-public class CarControllerTest {
+public class VehicleControllerTest {
 
-    CarController carController;
+    VehicleController vehicleController;
     ParkingGuardService parkingGuardService;
     WebTestClient webTestClient;
     ParkingTicketRepository parkingTicketRepository;
@@ -30,29 +30,29 @@ public class CarControllerTest {
     @Before
     public void setUp() throws Exception {
         parkingGuardService = Mockito.mock(ParkingGuardService.class);
-        carController = new CarController(parkingGuardService);
-        webTestClient = WebTestClient.bindToController(carController).build();
+        vehicleController = new VehicleController(parkingGuardService);
+        webTestClient = WebTestClient.bindToController(vehicleController).build();
 
         parkingTicketRepository = Mockito.mock(ParkingTicketRepository.class);
     }
 
     @Test
     public void enterCar() {
-        Car car = new Car();
+        Vehicle car = new Vehicle();
         given(parkingTicketRepository.saveAll(any(Publisher.class)))
                 .willReturn(Flux.just(car));
 
-        Car car1 = aCar()
+        Vehicle car1 = aVehicle()
                 .withLicense("XCD123")
                 .withType(VehicleType.CAR)
                 .withIsParking(true)
                 .build();
 
-        Mono<Car> carMono = Mono.just(car1);
+        Mono<Vehicle> carMono = Mono.just(car1);
 
         webTestClient.post()
-                .uri("/api/cars")
-                .body(carMono, Car.class)
+                .uri("/api/vehicles")
+                .body(carMono, Vehicle.class)
                 .exchange()
                 .expectStatus()
                 .isCreated();
@@ -66,7 +66,7 @@ public class CarControllerTest {
                 .willReturn(Mono.just(parkingTicket));
 
         webTestClient.get()
-                .uri("/api/cars/someid")
+                .uri("/api/vehicles/someid")
                 .exchange()
                 .expectBody(ParkingTicket.class);
     }
@@ -85,7 +85,7 @@ public class CarControllerTest {
         Mono<ParkingTicket> catToUpdateMono = Mono.just(parkingTicket);
 
         webTestClient.patch()
-                .uri("/api/cars/asdfasdf")
+                .uri("/api/vehicles/asdfasdf")
                 .body(catToUpdateMono, ParkingTicket.class)
                 .exchange()
                 .expectStatus()
@@ -107,7 +107,7 @@ public class CarControllerTest {
         Mono<ParkingTicket> catToUpdateMono = Mono.just(parkingTicket);
 
         webTestClient.patch()
-                .uri("/api/cars/asdfasdf")
+                .uri("/api/vehicles/asdfasdf")
                 .body(catToUpdateMono, ParkingTicket.class)
                 .exchange()
                 .expectStatus()

@@ -13,6 +13,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$USER_HOME$/Documents/Parking/src/main/java/com/ceiba/parking/domain/VehicleType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Documents/Parking/src/main/java/com/ceiba/parking/repositories/ParkingTicketRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Documents/Parking/src/main/java/com/ceiba/parking/services/ParkingGuardService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$USER_HOME$/Documents/Parking/src/main/java/com/ceiba/parking/services/ParkingGuardServiceImpl.java">
           <value>
             <set />
@@ -34,6 +49,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/controllers/MotorcycleController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/controllers/VehicleController.java">
           <value>
             <set />
           </value>
@@ -128,12 +148,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/builder/VehicleTestDataBuilder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/controllers/CarControllerTest.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/controllers/MotorcycleControllerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/com/ceiba/parking/controllers/VehicleControllerTest.java">
           <value>
             <set />
           </value>

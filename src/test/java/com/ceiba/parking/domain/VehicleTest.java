@@ -2,8 +2,7 @@ package com.ceiba.parking.domain;
 
 import org.junit.Test;
 
-import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
-import static com.ceiba.parking.builder.MotorcycleTestDataBuilder.aMotorcycle;
+import static com.ceiba.parking.builder.VehicleTestDataBuilder.aVehicle;
 import static org.junit.Assert.assertEquals;
 
 public class VehicleTest {
@@ -12,7 +11,7 @@ public class VehicleTest {
     @Test
     public void getLicenseCar() {
         //Arrange
-        Car vehicle = aCar()
+        Vehicle vehicle = aVehicle()
                 .withLicense("ACD123")
                 .withType(VehicleType.CAR)
                 .build();
@@ -25,7 +24,7 @@ public class VehicleTest {
     @Test
     public void getLicenseMotorcycle() {
         //Arrange
-        Motorcycle vehicle = aMotorcycle()
+        Vehicle vehicle = aVehicle()
                 .withLicense("ACD123")
                 .withType(VehicleType.MOTORCYCLE)
                 .withEngine(150)
@@ -39,7 +38,7 @@ public class VehicleTest {
     @Test
     public void getTypeCar() {
         //Arrange
-        Car vehicle = aCar()
+        Vehicle vehicle = aVehicle()
                 .withLicense("ACD123")
                 .withType(VehicleType.CAR)
                 .withIsParking(true)
@@ -53,7 +52,7 @@ public class VehicleTest {
     @Test
     public void getTypeMotorcycle() {
         //Arrange
-        Motorcycle vehicle = aMotorcycle()
+        Vehicle vehicle = aVehicle()
                 .withLicense("ACD123")
                 .withType(VehicleType.MOTORCYCLE)
                 .withEngine(150)
@@ -68,7 +67,7 @@ public class VehicleTest {
     @Test
     public void setLicense() {
         //Arrenge
-        Car car = new Car("DFW234", VehicleType.CAR, true);
+        Vehicle car = new Vehicle("DFW234", VehicleType.CAR, true);
 
         //Act
         String result = car.getLicense();
@@ -80,7 +79,7 @@ public class VehicleTest {
     @Test
     public void setType() {
         //Arrenge
-        Car car = new Car("DFW234", VehicleType.CAR, true);
+        Vehicle car = new Vehicle("DFW234", VehicleType.CAR, true);
 
         //Act
         VehicleType result = car.getType();

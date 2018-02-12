@@ -27,10 +27,10 @@ public class VehicleBootstrap implements CommandLineRunner{
     public void run(String... args) throws Exception {
         System.err.println("#### LOADING DATA ON BOOTSTRAP #####");
         if(parkingTicketRepository.count().block() == 0){
-            Car car = new Car("SED12", VehicleType.CAR, true);
+            Vehicle vehicle = new Vehicle("SED12", VehicleType.CAR, true);
             ParkingTicket parkingTicketCar =
-                    new ParkingTicket(car.getLicense(), car.getType(), calendarGuard.getActualDay(),  calendarGuard.getActualDay(), 0, 5000);
-            parkingTicketCar.addCar(car);
+                    new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(),  calendarGuard.getActualDay(), 0, 5000);
+            parkingTicketCar.addVehicle(vehicle);
             parkingTicketRepository.save(parkingTicketCar).block();
         }
     }

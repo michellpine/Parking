@@ -8,16 +8,15 @@ import java.util.List;
 
 public interface ParkingGuardService {
     boolean canEnterVehicle(Vehicle vehicle);
-    Mono<ParkingTicket> enterCar(Car vehicle);
-    Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle);
+    Mono<ParkingTicket> enterVehicle(Vehicle vehicle);
 
     int howManyCars();
     int howManyMotorcycles();
 
     ParkingTicket findParkingTicket(String id);
-
-    Mono<ParkingTicket> outCar(ParkingTicket parkingTicket, Car car);
-    Mono<ParkingTicket> outMotorcycle(ParkingTicket parkingTicket, Motorcycle motorcycle);
-
     List<ParkingTicket> findParkingVehicles();
+
+    Mono<ParkingTicket> outVehicle(ParkingTicket parkingTicket, Vehicle vehicle);
+
+
 }

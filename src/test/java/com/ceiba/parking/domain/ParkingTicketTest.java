@@ -1,13 +1,8 @@
 package com.ceiba.parking.domain;
 
-import com.ceiba.parking.services.ParkingGuardService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
-import static org.junit.Assert.*;
 
 public class ParkingTicketTest {
 

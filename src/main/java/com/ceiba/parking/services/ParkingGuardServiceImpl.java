@@ -40,41 +40,29 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     @Override
     public int howManyCars(){
         List<ParkingTicket> cars = new ArrayList<>();
-        parkingTicketRepository.findByCar_isParking(true).toIterable().forEach(cars::add);
+        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(cars::add);
         return cars.size();
     }
 
     @Override
     public int howManyMotorcycles(){
         List<ParkingTicket> motorcycles = new ArrayList<>();
-        parkingTicketRepository.findByMotorcycle_isParking(true).toIterable().forEach(motorcycles::add);
+        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(motorcycles::add);
         return motorcycles.size();
     }
 
     @Override
     @Transactional
-    public Mono<ParkingTicket> enterCar(Car vehicle) {
+    public Mono<ParkingTicket> enterVehicle(Vehicle vehicle) {
         if(!canEnterVehicle(vehicle)){
             return null;
-        }else if(howManyCars()>20){
+        }else if(vehicle.getType().equals(VehicleType.CAR) && howManyCars()>20){
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
-        }
-        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
-        System.err.println("carros: " +howManyCars());
-        parkingTicket.addCar(vehicle);
-        return parkingTicketRepository.save(parkingTicket);
-    }
-
-    @Override
-    @Transactional
-    public Mono<ParkingTicket> enterMotorcycle(Motorcycle vehicle) {
-        if(!canEnterVehicle(vehicle)) {
-            return null;
-        }else  if(howManyMotorcycles()>10){
+        }else if(vehicle.getType().equals(VehicleType.MOTORCYCLE) && howManyMotorcycles()>10){
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for motorcycles");
         }
         ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
-        parkingTicket.addMotorcycle(vehicle);
+        parkingTicket.addVehicle(vehicle);
         return parkingTicketRepository.save(parkingTicket);
     }
 
@@ -86,26 +74,16 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     @Override
     public List<ParkingTicket> findParkingVehicles() {
         List<ParkingTicket> vehicles = new ArrayList<>();
-        parkingTicketRepository.findByCar_isParking(true).toIterable().forEach(vehicles::add);
-        parkingTicketRepository.findByMotorcycle_isParking(true).toIterable().forEach(vehicles::add);
+        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehicles::add);
         return vehicles;
     }
 
     @Override
-    public Mono<ParkingTicket> outCar(ParkingTicket ticket, Car car) {
+    public Mono<ParkingTicket> outVehicle(ParkingTicket ticket, Vehicle vehicle) {
         ticket.setDateOut(calendarGuard.getActualDay());
         ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
-        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), 0));
-        ticket.getCar().setParking(false);
-        return parkingTicketRepository.save(ticket);
-    }
-
-    @Override
-    public Mono<ParkingTicket> outMotorcycle(ParkingTicket ticket, Motorcycle motorcycle) {
-        ticket.setDateOut(calendarGuard.getActualDay());
-        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
-        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), motorcycle.getEngine()));
-        ticket.getMotorcycle().setParking(false);
+        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), vehicle.getEngine()));
+        ticket.getVehicle().setParking(false);
         return parkingTicketRepository.save(ticket);
     }
 

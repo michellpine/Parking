@@ -20,8 +20,7 @@ public class ParkingTicket {
     protected int totalHours;
     protected int valueToPay;
 
-    protected Car car;
-    protected Motorcycle motorcycle;
+    protected Vehicle vehicle;
 
     public ParkingTicket() {
     }
@@ -35,14 +34,9 @@ public class ParkingTicket {
         this.valueToPay = valueToPay;
     }
 
-    public ParkingTicket addCar(Car car){
-        this.car = car;
+    public ParkingTicket addVehicle(Vehicle vehicle){
+        this.vehicle = vehicle;
         return this;
-    }
-
-    public ParkingTicket addMotorcycle(Motorcycle motorcycle){
-        this.motorcycle = motorcycle;
-        return  this;
     }
 
     public String getId() {
@@ -77,19 +71,8 @@ public class ParkingTicket {
         this.valueToPay = valueToPay;
     }
 
-    public Car getCar() {
-        return car;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Motorcycle getMotorcycle() {
-        return motorcycle;
-    }
-
-    public void setMotorcycle(Motorcycle motorcycle) {
-        this.motorcycle = motorcycle;
-    }
 }

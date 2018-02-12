@@ -1,7 +1,6 @@
 package com.ceiba.parking.services;
 
-import com.ceiba.parking.domain.Car;
-import com.ceiba.parking.domain.Motorcycle;
+import com.ceiba.parking.domain.Vehicle;
 import com.ceiba.parking.domain.VehicleType;
 import com.ceiba.parking.repositories.ParkingTicketRepository;
 import org.junit.Before;
@@ -10,8 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.Calendar;
 
-import static com.ceiba.parking.builder.CarTestDataBuilder.aCar;
-import static com.ceiba.parking.builder.MotorcycleTestDataBuilder.aMotorcycle;
+import static com.ceiba.parking.builder.VehicleTestDataBuilder.aVehicle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -31,7 +29,7 @@ public class ParkingServiceGuardServiceImplTest {
 
     @Test
     public void canEnterVehicle(){
-        Motorcycle moto = aMotorcycle()
+        Vehicle moto = aVehicle()
                 .withLicense("ACD123")
                 .withType(VehicleType.MOTORCYCLE)
                 .withEngine(150)
@@ -47,7 +45,7 @@ public class ParkingServiceGuardServiceImplTest {
     @Test
     public void licenseVehicleBeginToA_DayIsDifferentToMondayAndSunday(){
         //Arrange
-        Car car = aCar()
+        Vehicle car = aVehicle()
                 .withLicense("ACD124")
                 .withType(VehicleType.CAR)
                 .withIsParking(true)
@@ -69,7 +67,7 @@ public class ParkingServiceGuardServiceImplTest {
     @Test
     public void licenseVehicleBeginToA_DayIsMonday(){
         //Arrange
-        Motorcycle moto = aMotorcycle()
+        Vehicle moto = aVehicle()
                 .withLicense("ACD125")
                 .withType(VehicleType.MOTORCYCLE)
                 .withEngine(150)
@@ -91,7 +89,7 @@ public class ParkingServiceGuardServiceImplTest {
     @Test
     public void licenseVehicleBeginToA_DayIsSunday(){
         //Arrange
-        Motorcycle moto = aMotorcycle()
+        Vehicle moto = aVehicle()
                 .withLicense("ACD126")
                 .withType(VehicleType.MOTORCYCLE)
                 .withIsParking(true)

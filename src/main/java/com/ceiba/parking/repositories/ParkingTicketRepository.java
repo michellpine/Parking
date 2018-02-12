@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface ParkingTicketRepository extends ReactiveMongoRepository<ParkingTicket, String> {
 
-    Flux<ParkingTicket> findByCar_isParking(boolean isParking);
-    Flux<ParkingTicket> findByMotorcycle_isParking(boolean isParking);
+    Flux<ParkingTicket> findByVehicle_isParking(boolean isParking);
 }
