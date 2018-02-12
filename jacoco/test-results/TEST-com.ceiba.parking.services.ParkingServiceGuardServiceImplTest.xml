@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2018-02-09T02:49:52" hostname="MacBook-Air-de-usuario.local" time="0.073">
+<testsuite name="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-02-12T19:22:18" hostname="DAYANA-PINEDA" time="0.017">
   <properties/>
-  <testcase name="licenseVehicleBeginToA_DayIsMonday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.06"/>
+  <testcase name="licenseVehicleBeginToA_DayIsMonday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
   <testcase name="licenseVehicleBeginToA_DayIsSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
-  <testcase name="canEnterVehicle" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.004"/>
-  <testcase name="licenseVehicleBeginToA_DayIsDifferentToMondayAndSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.005"/>
+  <testcase name="howManyMotorcyclesAreParking" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.011"/>
+  <testcase name="canEnterVehicle" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.0"/>
+  <testcase name="licenseVehicleBeginToA_DayIsDifferentToMondayAndSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
+  <testcase name="validateEntryConditions" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.0"/>
+  <testcase name="howManyCarsAreParking" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

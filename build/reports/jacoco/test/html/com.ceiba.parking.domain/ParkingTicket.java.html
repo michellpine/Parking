@@ -9,8 +9,8 @@ import java.util.UUID;
 @Document
 public class ParkingTicket {
 
-<span class="nc" id="L12">    @Id</span>
-<span class="nc" id="L13">    protected String id= UUID.randomUUID().toString();</span>
+<span class="fc" id="L12">    @Id</span>
+<span class="fc" id="L13">    protected String id= UUID.randomUUID().toString();</span>
     protected String license;
     protected VehicleType vehicleType;
 
@@ -20,73 +20,57 @@ public class ParkingTicket {
     protected int totalHours;
     protected int valueToPay;
 
-    protected Car car;
-    protected Motorcycle motorcycle;
+    protected Vehicle vehicle;
 
-<span class="nc" id="L26">    public ParkingTicket() {</span>
-<span class="nc" id="L27">    }</span>
+<span class="fc" id="L25">    public ParkingTicket() {</span>
+<span class="fc" id="L26">    }</span>
 
-<span class="nc" id="L29">    public ParkingTicket(String license, VehicleType vehicleType, String dateArrive, String dateOut, int totalHours, int valueToPay) {</span>
-<span class="nc" id="L30">        this.license = license;</span>
-<span class="nc" id="L31">        this.vehicleType = vehicleType;</span>
-<span class="nc" id="L32">        this.dateArrive = dateArrive;</span>
-<span class="nc" id="L33">        this.dateOut = dateOut;</span>
-<span class="nc" id="L34">        this.totalHours = totalHours;</span>
-<span class="nc" id="L35">        this.valueToPay = valueToPay;</span>
-<span class="nc" id="L36">    }</span>
+<span class="fc" id="L28">    public ParkingTicket(String license, VehicleType vehicleType, String dateArrive, String dateOut, int totalHours, int valueToPay) {</span>
+<span class="fc" id="L29">        this.license = license;</span>
+<span class="fc" id="L30">        this.vehicleType = vehicleType;</span>
+<span class="fc" id="L31">        this.dateArrive = dateArrive;</span>
+<span class="fc" id="L32">        this.dateOut = dateOut;</span>
+<span class="fc" id="L33">        this.totalHours = totalHours;</span>
+<span class="fc" id="L34">        this.valueToPay = valueToPay;</span>
+<span class="fc" id="L35">    }</span>
 
-    public ParkingTicket addCar(Car car){
-<span class="nc" id="L39">        this.car = car;</span>
-<span class="nc" id="L40">        return this;</span>
+    public ParkingTicket addVehicle(Vehicle vehicle){
+<span class="fc" id="L38">        this.vehicle = vehicle;</span>
+<span class="fc" id="L39">        return this;</span>
     }
 
-    public ParkingTicket addMotorcycle(Motorcycle motorcycle){
-<span class="nc" id="L44">        this.motorcycle = motorcycle;</span>
-<span class="nc" id="L45">        return  this;</span>
-    }
 
     public String getDateArrive() {
-<span class="nc" id="L49">        return dateArrive;</span>
+<span class="fc" id="L44">        return dateArrive;</span>
     }
 
     public String getDateOut() {
-<span class="nc" id="L53">        return dateOut;</span>
+<span class="fc" id="L48">        return dateOut;</span>
     }
 
     public void setDateOut(String dateOut) {
-<span class="nc" id="L57">        this.dateOut = dateOut;</span>
-<span class="nc" id="L58">    }</span>
+<span class="fc" id="L52">        this.dateOut = dateOut;</span>
+<span class="fc" id="L53">    }</span>
 
     public VehicleType getVehicleType() {
-<span class="nc" id="L61">        return vehicleType;</span>
+<span class="fc" id="L56">        return vehicleType;</span>
     }
 
     public int getTotalHours() {
-<span class="nc" id="L65">        return totalHours;</span>
+<span class="fc" id="L60">        return totalHours;</span>
     }
 
     public void setTotalHours(int totalHours) {
-<span class="nc" id="L69">        this.totalHours = totalHours;</span>
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L64">        this.totalHours = totalHours;</span>
+<span class="nc" id="L65">    }</span>
 
     public void setValueToPay(int valueToPay) {
-<span class="nc" id="L73">        this.valueToPay = valueToPay;</span>
-<span class="nc" id="L74">    }</span>
+<span class="nc" id="L68">        this.valueToPay = valueToPay;</span>
+<span class="nc" id="L69">    }</span>
 
-    public Car getCar() {
-<span class="nc" id="L77">        return car;</span>
+    public Vehicle getVehicle() {
+<span class="fc" id="L72">        return vehicle;</span>
     }
 
-    public void setCar(Car car) {
-<span class="nc" id="L81">        this.car = car;</span>
-<span class="nc" id="L82">    }</span>
-
-    public Motorcycle getMotorcycle() {
-<span class="nc" id="L85">        return motorcycle;</span>
-    }
-
-    public void setMotorcycle(Motorcycle motorcycle) {
-<span class="nc" id="L89">        this.motorcycle = motorcycle;</span>
-<span class="nc" id="L90">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.8.201612092310</span></div></body></html>

@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -18,78 +19,86 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     private CalculatorParkingGuard calculatorParkingGuard;
     private ParkingTicketRepository parkingTicketRepository;
 
-    static final int CAR_CELLS = 19;
-    static final int MOTORCYCLE_CELLS = 9;
+    static final int CARS_CELLS_AVAILABLE = 20;
+    static final int MOTORCYCLE_CELLS_AVAILABLE = 10;
 
     public ParkingGuardServiceImpl(ParkingTicketRepository parkingTicketRepository,
-<span class="nc" id="L25">                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {</span>
-<span class="nc" id="L26">        this.parkingTicketRepository = parkingTicketRepository;</span>
-<span class="nc" id="L27">        this.calendarGuard          = calendarGuard;</span>
-<span class="nc" id="L28">        this.calculatorParkingGuard = calculatorParkingGuard;</span>
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L26">                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {</span>
+<span class="fc" id="L27">        this.parkingTicketRepository = parkingTicketRepository;</span>
+<span class="fc" id="L28">        this.calendarGuard          = calendarGuard;</span>
+<span class="fc" id="L29">        this.calculatorParkingGuard = calculatorParkingGuard;</span>
+<span class="fc" id="L30">    }</span>
 
+
+    @Override
+    @Transactional
+    public Mono&lt;ParkingTicket&gt; enterVehicle(Vehicle vehicle) {
+<span class="nc" id="L36">        validateEntryConditions(vehicle);</span>
+<span class="nc" id="L37">        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);</span>
+<span class="nc" id="L38">        parkingTicket.addVehicle(vehicle);</span>
+
+<span class="nc" id="L40">        return parkingTicketRepository.save(parkingTicket);</span>
+    }
+
+    @Override
+    public void validateEntryConditions(Vehicle vehicle) {
+<span class="nc" id="L45">        canEnterVehicle(vehicle);</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">        if(vehicle.getType().equals(VehicleType.CAR) &amp;&amp; howManyVehiclesAreParking(VehicleType.CAR)&gt;= CARS_CELLS_AVAILABLE){</span>
+<span class="nc" id="L47">            throw new ParkingException(&quot;Vehicle cannot enter, there are not more cells available for cars&quot;);</span>
+        }
+<span class="nc bnc" id="L49" title="All 4 branches missed.">        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) &amp;&amp; howManyVehiclesAreParking(VehicleType.MOTORCYCLE)&gt;= MOTORCYCLE_CELLS_AVAILABLE){</span>
+<span class="nc" id="L50">            throw new ParkingException(&quot;Vehicle cannot enter, there are not more cells available for motorcycles&quot;);</span>
+        }
+<span class="nc" id="L52">    }</span>
+
+    @Override
     public boolean canEnterVehicle(Vehicle vehicle) {
-<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (vehicle.getLicense().toUpperCase().startsWith(&quot;A&quot;)</span>
-<span class="nc bnc" id="L33" title="All 2 branches missed.">                &amp;&amp; calendarGuard.getActualWeekDay() != java.util.Calendar.MONDAY</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">                &amp;&amp; calendarGuard.getActualWeekDay() != java.util.Calendar.SUNDAY) {</span>
-<span class="nc" id="L35">            throw new ParkingException(&quot;Vehicle cannot enter, license begin for A and today is not available day for it&quot;);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (licenseBigintWithA(vehicle)</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                &amp;&amp; !isAvailableDay()) {</span>
+<span class="fc" id="L58">            throw new ParkingException(&quot;Vehicle cannot enter, license begin for A and today is not available day for it&quot;);</span>
         }
-<span class="nc" id="L37">        return true;</span>
+<span class="fc" id="L60">        return true;</span>
     }
 
-    public int howManyCars(VehicleType vehicleType){
-<span class="nc" id="L41">        List&lt;ParkingTicket&gt; parkingTickets = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L42">        parkingTicketRepository.findCars(vehicleType).toIterable().forEach(parkingTickets::add);</span>
-<span class="nc" id="L43">        return parkingTickets.size();</span>
+    private boolean licenseBigintWithA(Vehicle vehicle) {
+<span class="fc" id="L64">        return vehicle.getLicense().toUpperCase().startsWith(&quot;A&quot;);</span>
     }
 
-    @Override
-    @Transactional
-    public Mono&lt;ParkingTicket&gt; enterCar(Car vehicle) {
-        //throw new ParkingException(&quot;Vehicle cannot enter, there are not more cells available for cars&quot;);
-<span class="nc" id="L50">        int result = howManyCars(vehicle.getType());</span>
-<span class="nc" id="L51">        System.err.println(&quot;carros: &quot; +result);</span>
-<span class="nc" id="L52">        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);</span>
-<span class="nc" id="L53">        parkingTicket.addCar(vehicle);</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(!canEnterVehicle(vehicle)) {</span>
-<span class="nc" id="L55">            return null;</span>
-        }
-<span class="nc" id="L57">        return parkingTicketRepository.save(parkingTicket);</span>
+    private boolean isAvailableDay() {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        return calendarGuard.getActualWeekDay() == java.util.Calendar.MONDAY</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                || calendarGuard.getActualWeekDay() == java.util.Calendar.SUNDAY;</span>
     }
 
     @Override
-    @Transactional
-    public Mono&lt;ParkingTicket&gt; enterMotorcycle(Motorcycle vehicle) {
-        //throw new ParkingException(&quot;Vehicle cannot enter, there are not more cells available for cars&quot;);
-<span class="nc" id="L64">        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);</span>
-<span class="nc" id="L65">        parkingTicket.addMotorcycle(vehicle);</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">        if(!canEnterVehicle(vehicle)) {</span>
-<span class="nc" id="L67">            return null;</span>
-        }
-<span class="nc" id="L69">        return parkingTicketRepository.save(parkingTicket);</span>
+    public int howManyVehiclesAreParking(VehicleType vehicleType) {
+<span class="fc" id="L74">        List&lt;ParkingTicket&gt; vehiclesParking = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L75">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehiclesParking::add);</span>
+
+<span class="fc" id="L77">        List&lt;ParkingTicket&gt; vehiclesParkingForType = vehiclesParking.stream()</span>
+<span class="fc" id="L78">                .filter(line -&gt; line.getVehicleType().equals(vehicleType))</span>
+<span class="fc" id="L79">                .collect(Collectors.toList());</span>
+<span class="fc" id="L80">        return vehiclesParkingForType.size();</span>
     }
 
     @Override
-    public ParkingTicket findRegister(String id) {
-<span class="nc" id="L74">        return parkingTicketRepository.findById(id).block();</span>
+    public ParkingTicket findParkingTicket(String id) {
+<span class="nc" id="L85">        return parkingTicketRepository.findById(id).block();</span>
     }
 
     @Override
-    public Mono&lt;ParkingTicket&gt; outCar(ParkingTicket ticket, Car car) {
-<span class="nc" id="L79">        ticket.setDateOut(calendarGuard.getActualDay());</span>
-<span class="nc" id="L80">        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));</span>
-<span class="nc" id="L81">        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), 0));</span>
-<span class="nc" id="L82">        ticket.getCar().setParking(false);</span>
-<span class="nc" id="L83">        return parkingTicketRepository.save(ticket);</span>
+    public List&lt;ParkingTicket&gt; findParkingVehicles() {
+<span class="nc" id="L90">        List&lt;ParkingTicket&gt; vehicles = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L91">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehicles::add);</span>
+<span class="nc" id="L92">        return vehicles;</span>
     }
 
     @Override
-    public Mono&lt;ParkingTicket&gt; outMotorcycle(ParkingTicket ticket, Motorcycle motorcycle) {
-<span class="nc" id="L88">        ticket.setDateOut(calendarGuard.getActualDay());</span>
-<span class="nc" id="L89">        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));</span>
-<span class="nc" id="L90">        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), motorcycle.getEngine()));</span>
-<span class="nc" id="L91">        ticket.getMotorcycle().setParking(false);</span>
-<span class="nc" id="L92">        return parkingTicketRepository.save(ticket);</span>
+    public Mono&lt;ParkingTicket&gt; outVehicle(ParkingTicket ticket, Vehicle vehicle) {
+<span class="nc" id="L97">        ticket.setDateOut(calendarGuard.getActualDay());</span>
+<span class="nc" id="L98">        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));</span>
+<span class="nc" id="L99">        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), vehicle.getEngine()));</span>
+<span class="nc" id="L100">        ticket.getVehicle().setParking(false);</span>
+<span class="nc" id="L101">        return parkingTicketRepository.save(ticket);</span>
     }
 
 }
