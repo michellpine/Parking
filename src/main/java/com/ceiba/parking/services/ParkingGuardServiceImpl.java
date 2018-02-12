@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -41,6 +42,9 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     public int howManyCars(){
         List<ParkingTicket> cars = new ArrayList<>();
         parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(cars::add);
+        cars.stream()
+                .filter(v -> v.getVehicleType().equals(VehicleType.CAR))
+                .collect(Collectors.toList());
         return cars.size();
     }
 
@@ -48,6 +52,9 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     public int howManyMotorcycles(){
         List<ParkingTicket> motorcycles = new ArrayList<>();
         parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(motorcycles::add);
+        motorcycles.stream()
+                .filter(v -> v.getVehicleType().equals(VehicleType.MOTORCYCLE))
+                .collect(Collectors.toList());
         return motorcycles.size();
     }
 
@@ -56,9 +63,9 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     public Mono<ParkingTicket> enterVehicle(Vehicle vehicle) {
         if(!canEnterVehicle(vehicle)){
             return null;
-        }else if(vehicle.getType().equals(VehicleType.CAR) && howManyCars()>20){
+        }else if(vehicle.getType().equals(VehicleType.CAR) && howManyCars()>19){
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
-        }else if(vehicle.getType().equals(VehicleType.MOTORCYCLE) && howManyMotorcycles()>10){
+        }else if(vehicle.getType().equals(VehicleType.MOTORCYCLE) && howManyMotorcycles()>9){
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for motorcycles");
         }
         ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);
