@@ -9,8 +9,8 @@ import java.util.UUID;
 @Document
 public class ParkingTicket {
 
-<span class="nc" id="L12">    @Id</span>
-<span class="nc" id="L13">    private String id= UUID.randomUUID().toString();</span>
+<span class="fc" id="L12">    @Id</span>
+<span class="fc" id="L13">    private String id= UUID.randomUUID().toString();</span>
     private String license;
     private VehicleType vehicleType;
 
@@ -22,41 +22,41 @@ public class ParkingTicket {
 
     private Vehicle vehicle;
 
-<span class="nc" id="L25">    public ParkingTicket() {}</span>
+<span class="fc" id="L25">    public ParkingTicket() {}</span>
 
-<span class="nc" id="L27">    public ParkingTicket(String license, VehicleType vehicleType, String dateArrive, String dateOut, int totalHours, int valueToPay) {</span>
-<span class="nc" id="L28">        this.license = license;</span>
-<span class="nc" id="L29">        this.vehicleType = vehicleType;</span>
-<span class="nc" id="L30">        this.dateArrive = dateArrive;</span>
-<span class="nc" id="L31">        this.dateOut = dateOut;</span>
-<span class="nc" id="L32">        this.totalHours = totalHours;</span>
-<span class="nc" id="L33">        this.valueToPay = valueToPay;</span>
-<span class="nc" id="L34">    }</span>
+<span class="fc" id="L27">    public ParkingTicket(String license, VehicleType vehicleType, String dateArrive, String dateOut, int totalHours, int valueToPay) {</span>
+<span class="fc" id="L28">        this.license = license;</span>
+<span class="fc" id="L29">        this.vehicleType = vehicleType;</span>
+<span class="fc" id="L30">        this.dateArrive = dateArrive;</span>
+<span class="fc" id="L31">        this.dateOut = dateOut;</span>
+<span class="fc" id="L32">        this.totalHours = totalHours;</span>
+<span class="fc" id="L33">        this.valueToPay = valueToPay;</span>
+<span class="fc" id="L34">    }</span>
 
     public ParkingTicket addVehicle(Vehicle vehicle){
-<span class="nc" id="L37">        this.vehicle = vehicle;</span>
-<span class="nc" id="L38">        return this;</span>
+<span class="fc" id="L37">        this.vehicle = vehicle;</span>
+<span class="fc" id="L38">        return this;</span>
     }
 
 
     public String getDateArrive() {
-<span class="nc" id="L43">        return dateArrive;</span>
+<span class="fc" id="L43">        return dateArrive;</span>
     }
 
     public String getDateOut() {
-<span class="nc" id="L47">        return dateOut;</span>
+<span class="fc" id="L47">        return dateOut;</span>
     }
 
     public void setDateOut(String dateOut) {
-<span class="nc" id="L51">        this.dateOut = dateOut;</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L51">        this.dateOut = dateOut;</span>
+<span class="fc" id="L52">    }</span>
 
     public VehicleType getVehicleType() {
-<span class="nc" id="L55">        return vehicleType;</span>
+<span class="fc" id="L55">        return vehicleType;</span>
     }
 
     public int getTotalHours() {
-<span class="nc" id="L59">        return totalHours;</span>
+<span class="fc" id="L59">        return totalHours;</span>
     }
 
     public void setTotalHours(int totalHours) {
@@ -68,7 +68,7 @@ public class ParkingTicket {
 <span class="nc" id="L68">    }</span>
 
     public Vehicle getVehicle() {
-<span class="nc" id="L71">        return vehicle;</span>
+<span class="fc" id="L71">        return vehicle;</span>
     }
 
 }

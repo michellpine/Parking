@@ -23,11 +23,11 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     static final int MOTORCYCLE_CELLS_AVAILABLE = 10;
 
     public ParkingGuardServiceImpl(ParkingTicketRepository parkingTicketRepository,
-<span class="nc" id="L26">                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {</span>
-<span class="nc" id="L27">        this.parkingTicketRepository = parkingTicketRepository;</span>
-<span class="nc" id="L28">        this.calendarGuard          = calendarGuard;</span>
-<span class="nc" id="L29">        this.calculatorParkingGuard = calculatorParkingGuard;</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc" id="L26">                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {</span>
+<span class="fc" id="L27">        this.parkingTicketRepository = parkingTicketRepository;</span>
+<span class="fc" id="L28">        this.calendarGuard          = calendarGuard;</span>
+<span class="fc" id="L29">        this.calculatorParkingGuard = calculatorParkingGuard;</span>
+<span class="fc" id="L30">    }</span>
 
 
     @Override
@@ -53,40 +53,40 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
 
     @Override
     public boolean canEnterVehicle(Vehicle vehicle) {
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (licenseBigintWithA(vehicle)</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">                &amp;&amp; !isAvailableDay()) {</span>
-<span class="nc" id="L58">            throw new ParkingException(&quot;Vehicle cannot enter, license begin for A and today is not available day for it&quot;);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (licenseBigintWithA(vehicle)</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                &amp;&amp; !isAvailableDay()) {</span>
+<span class="fc" id="L58">            throw new ParkingException(&quot;Vehicle cannot enter, license begin for A and today is not available day for it&quot;);</span>
         }
-<span class="nc" id="L60">        return true;</span>
+<span class="fc" id="L60">        return true;</span>
     }
     @Override
     public void validateTypeVehicle(Vehicle vehicle) {
-<span class="nc bnc" id="L64" title="All 4 branches missed.">        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) &amp;&amp; vehicle.getEngine()==0){</span>
-<span class="nc" id="L65">            throw new ParkingException(&quot;Please enter the engine for the motorcycle&quot;);</span>
+<span class="pc bpc" id="L64" title="1 of 4 branches missed.">        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) &amp;&amp; vehicle.getEngine()==0){</span>
+<span class="fc" id="L65">            throw new ParkingException(&quot;Please enter the engine for the motorcycle&quot;);</span>
         }
-<span class="nc bnc" id="L67" title="All 4 branches missed.">        if(vehicle.getType().equals(VehicleType.CAR) &amp;&amp; vehicle.getEngine()!=0 ) {</span>
+<span class="pc bpc" id="L67" title="2 of 4 branches missed.">        if(vehicle.getType().equals(VehicleType.CAR) &amp;&amp; vehicle.getEngine()!=0 ) {</span>
 <span class="nc" id="L68">            throw new ParkingException(&quot;Please remove the engine for the car&quot;);</span>
         }
-<span class="nc" id="L70">    }</span>
+<span class="fc" id="L70">    }</span>
     private boolean licenseBigintWithA(Vehicle vehicle) {
-<span class="nc" id="L72">        return vehicle.getLicense().toUpperCase().startsWith(&quot;A&quot;);</span>
+<span class="fc" id="L72">        return vehicle.getLicense().toUpperCase().startsWith(&quot;A&quot;);</span>
     }
 
     private boolean isAvailableDay() {
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        return calendarGuard.getActualWeekDay() == java.util.Calendar.MONDAY</span>
-<span class="nc bnc" id="L77" title="All 2 branches missed.">                || calendarGuard.getActualWeekDay() == java.util.Calendar.SUNDAY;</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        return calendarGuard.getActualWeekDay() == java.util.Calendar.MONDAY</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                || calendarGuard.getActualWeekDay() == java.util.Calendar.SUNDAY;</span>
     }
 
 
     @Override
     public int howManyVehiclesAreParking(VehicleType vehicleType) {
-<span class="nc" id="L83">        List&lt;ParkingTicket&gt; vehiclesParking = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L84">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehiclesParking::add);</span>
+<span class="fc" id="L83">        List&lt;ParkingTicket&gt; vehiclesParking = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L84">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehiclesParking::add);</span>
 
-<span class="nc" id="L86">        List&lt;ParkingTicket&gt; vehiclesParkingForType = vehiclesParking.stream()</span>
-<span class="nc" id="L87">                .filter(line -&gt; line.getVehicleType().equals(vehicleType))</span>
-<span class="nc" id="L88">                .collect(Collectors.toList());</span>
-<span class="nc" id="L89">        return vehiclesParkingForType.size();</span>
+<span class="fc" id="L86">        List&lt;ParkingTicket&gt; vehiclesParkingForType = vehiclesParking.stream()</span>
+<span class="fc" id="L87">                .filter(line -&gt; line.getVehicleType().equals(vehicleType))</span>
+<span class="fc" id="L88">                .collect(Collectors.toList());</span>
+<span class="fc" id="L89">        return vehiclesParkingForType.size();</span>
     }
 
     @Override

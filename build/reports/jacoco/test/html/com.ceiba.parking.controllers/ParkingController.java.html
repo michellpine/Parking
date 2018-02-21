@@ -13,20 +13,20 @@ import java.util.List;
 public class ParkingController {
     private ParkingGuardService parkingGuardService;
 
-<span class="nc" id="L16">    public ParkingController(ParkingGuardService parkingGuardService) {</span>
-<span class="nc" id="L17">        this.parkingGuardService = parkingGuardService;</span>
-<span class="nc" id="L18">    }</span>
+<span class="fc" id="L16">    public ParkingController(ParkingGuardService parkingGuardService) {</span>
+<span class="fc" id="L17">        this.parkingGuardService = parkingGuardService;</span>
+<span class="fc" id="L18">    }</span>
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(&quot;/api/vehicles&quot;)
     Mono&lt;ParkingTicket&gt; enterVehicle(@RequestBody Vehicle vehicle){
-<span class="nc" id="L23">        return parkingGuardService.enterVehicle(vehicle);</span>
+<span class="fc" id="L23">        return parkingGuardService.enterVehicle(vehicle);</span>
     }
 
     @PatchMapping(&quot;/api/vehicles/{id}&quot;)
     Mono&lt;ParkingTicket&gt; outVehicle(@PathVariable String id, @RequestBody Vehicle vehicle){
-<span class="nc" id="L28">        ParkingTicket ticketUpdate = parkingGuardService.findParkingTicket(id);</span>
-<span class="nc" id="L29">        return parkingGuardService.outVehicle(ticketUpdate, vehicle);</span>
+<span class="fc" id="L28">        ParkingTicket ticketUpdate = parkingGuardService.findParkingTicket(id);</span>
+<span class="fc" id="L29">        return parkingGuardService.outVehicle(ticketUpdate, vehicle);</span>
     }
 
     @GetMapping(&quot;/api/vehicles/&quot;)

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2018-02-12T19:22:18" hostname="DAYANA-PINEDA" time="0.017">
+<testsuite name="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2018-02-21T19:52:22" hostname="DAYANA-PINEDA" time="0.024">
   <properties/>
   <testcase name="licenseVehicleBeginToA_DayIsMonday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
-  <testcase name="licenseVehicleBeginToA_DayIsSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
-  <testcase name="howManyMotorcyclesAreParking" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.011"/>
-  <testcase name="canEnterVehicle" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.0"/>
+  <testcase name="licenseVehicleBeginToA_DayIsSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.002"/>
+  <testcase name="howManyMotorcyclesAreParking" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.015"/>
+  <testcase name="validateEntryConditionsForMotorcycles" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.0"/>
+  <testcase name="validateTypeVehicleIsNotAMotorcycle" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
+  <testcase name="canEnterVehicle" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
+  <testcase name="validateEntryConditionsForCar" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
+  <testcase name="validateCarHasNotEngine" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
   <testcase name="licenseVehicleBeginToA_DayIsDifferentToMondayAndSunday" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
-  <testcase name="validateEntryConditions" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.0"/>
-  <testcase name="howManyCarsAreParking" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.002"/>
+  <testcase name="howManyCarsAreParking" classname="com.ceiba.parking.services.ParkingServiceGuardServiceImplTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

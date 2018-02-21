@@ -6,45 +6,45 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-<span class="nc" id="L9">public class CalculatorParkingGuard {</span>
+<span class="fc" id="L9">public class CalculatorParkingGuard {</span>
 
-<span class="nc" id="L11">    private int VALUE_HOUR_CAR = 1000;</span>
-<span class="nc" id="L12">    private int VALUE_HOUR_MOTORCYCLE = 500;</span>
-<span class="nc" id="L13">    private int VALUE_DAY_CAR = 8000;</span>
-<span class="nc" id="L14">    private int VALUE_DAY_MOTORCYCLE = 6000;</span>
-<span class="nc" id="L15">    private int CC_LIMIT = 500;</span>
-<span class="nc" id="L16">    private int EXTRA_MONEY_TO_PAY_FOR_CC_LIMIT = 2000;</span>
-<span class="nc" id="L17">    private int TOTAL_HOURS_PER_DAY = 24;</span>
-<span class="nc" id="L18">    private int HOUR_TO_BEGIN_A_DAY = 9;</span>
-<span class="nc" id="L19">    private int HOUR_TO_END_A_DAY = 23;</span>
+<span class="fc" id="L11">    private int VALUE_HOUR_CAR = 1000;</span>
+<span class="fc" id="L12">    private int VALUE_HOUR_MOTORCYCLE = 500;</span>
+<span class="fc" id="L13">    private int VALUE_DAY_CAR = 8000;</span>
+<span class="fc" id="L14">    private int VALUE_DAY_MOTORCYCLE = 6000;</span>
+<span class="fc" id="L15">    private int CC_LIMIT = 500;</span>
+<span class="fc" id="L16">    private int EXTRA_MONEY_TO_PAY_FOR_CC_LIMIT = 2000;</span>
+<span class="fc" id="L17">    private int TOTAL_HOURS_PER_DAY = 24;</span>
+<span class="fc" id="L18">    private int HOUR_TO_BEGIN_A_DAY = 9;</span>
+<span class="fc" id="L19">    private int HOUR_TO_END_A_DAY = 23;</span>
 
     public int getCountHours(Date dateArrive, Date dateOut) {
-<span class="nc" id="L22">        double differenceInMinutes = (dateOut.getTime() - dateArrive.getTime())/(60*1000);</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        if((differenceInMinutes/60) % 1 == 0){</span>
-<span class="nc" id="L24">            return (int) ((dateOut.getTime() - dateArrive.getTime())/(60*60*1000));</span>
+<span class="fc" id="L22">        double differenceInMinutes = (dateOut.getTime() - dateArrive.getTime())/(60*1000);</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if((differenceInMinutes/60) % 1 == 0){</span>
+<span class="fc" id="L24">            return (int) ((dateOut.getTime() - dateArrive.getTime())/(60*60*1000));</span>
         }else{
-<span class="nc" id="L26">            return (int) Math.ceil(differenceInMinutes/60);</span>
+<span class="fc" id="L26">            return (int) Math.ceil(differenceInMinutes/60);</span>
         }
     }
 
     public int calculateValueToPay(int hours, VehicleType type, int engine){
         int valueToPay;
-<span class="nc" id="L32">        int daysToPay = (hours/TOTAL_HOURS_PER_DAY);</span>
-<span class="nc" id="L33">        int hoursToPay = 0;</span>
-<span class="nc bnc" id="L34" title="All 4 branches missed.">        if((hours % TOTAL_HOURS_PER_DAY)&gt;=HOUR_TO_BEGIN_A_DAY &amp;&amp; (hours % TOTAL_HOURS_PER_DAY)&lt;=HOUR_TO_END_A_DAY) {</span>
+<span class="fc" id="L32">        int daysToPay = (hours/TOTAL_HOURS_PER_DAY);</span>
+<span class="fc" id="L33">        int hoursToPay = 0;</span>
+<span class="pc bpc" id="L34" title="3 of 4 branches missed.">        if((hours % TOTAL_HOURS_PER_DAY)&gt;=HOUR_TO_BEGIN_A_DAY &amp;&amp; (hours % TOTAL_HOURS_PER_DAY)&lt;=HOUR_TO_END_A_DAY) {</span>
 <span class="nc" id="L35">            daysToPay++;</span>
         }else {
-<span class="nc" id="L37">            hoursToPay = hours % TOTAL_HOURS_PER_DAY;</span>
+<span class="fc" id="L37">            hoursToPay = hours % TOTAL_HOURS_PER_DAY;</span>
         }
-<span class="nc bnc" id="L39" title="All 4 branches missed.">        if(type.equals(VehicleType.MOTORCYCLE) &amp;&amp; engine&gt;=CC_LIMIT){</span>
-<span class="nc" id="L40">            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE) + EXTRA_MONEY_TO_PAY_FOR_CC_LIMIT;</span>
+<span class="fc bfc" id="L39" title="All 4 branches covered.">        if(type.equals(VehicleType.MOTORCYCLE) &amp;&amp; engine&gt;=CC_LIMIT){</span>
+<span class="fc" id="L40">            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE) + EXTRA_MONEY_TO_PAY_FOR_CC_LIMIT;</span>
         }else {
-<span class="nc" id="L42">            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE);</span>
+<span class="fc" id="L42">            valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE);</span>
         }
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(type.equals(VehicleType.CAR)){</span>
-<span class="nc" id="L45">            valueToPay = (daysToPay*VALUE_DAY_CAR)+(hoursToPay*VALUE_HOUR_CAR);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if(type.equals(VehicleType.CAR)){</span>
+<span class="fc" id="L45">            valueToPay = (daysToPay*VALUE_DAY_CAR)+(hoursToPay*VALUE_HOUR_CAR);</span>
         }
-<span class="nc" id="L47">        return valueToPay;</span>
+<span class="fc" id="L47">        return valueToPay;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.8.201612092310</span></div></body></html>
