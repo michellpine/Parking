@@ -53,6 +53,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/controllers/ParkingController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/controllers/VehicleController.java">
           <value>
             <set />
@@ -194,6 +199,21 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../spring5-webflux-rest-update-category/src/main/java/guru/springframework/spring5webfluxrest/controllers/CategoryController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Google Drive/platzisquare/src/app/app.component.html">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Google Drive/platzisquare/src/app/app.component.ts">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Google Drive/platzisquare/src/app/directives/resaltar.directive.ts">
           <value>
             <set />
           </value>

@@ -1,6 +1,5 @@
 package com.ceiba.parking.controllers;
 
-
 import com.ceiba.parking.domain.ParkingTicket;
 import com.ceiba.parking.domain.Vehicle;
 import com.ceiba.parking.services.ParkingGuardService;

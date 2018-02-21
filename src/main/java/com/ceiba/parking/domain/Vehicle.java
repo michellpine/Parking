@@ -11,17 +11,17 @@ import java.util.UUID;
 public class Vehicle {
 
     @Id
-    protected String id= UUID.randomUUID().toString();
+    private String id= UUID.randomUUID().toString();
 
     @NotBlank
-    protected String license;
+    private String license;
 
     @NotNull
-    protected VehicleType type;
-    protected int engine;
+    private VehicleType type;
+    private int engine;
 
     @NotNull
-    protected boolean isParking;
+    private boolean isParking;
 
     public Vehicle(){
 

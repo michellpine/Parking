@@ -9,7 +9,6 @@ import static com.ceiba.parking.builder.VehicleTestDataBuilder.aVehicle;
 public class ParkingTicketTest {
 
 
-
     @Test
     public void addVehicle(){
         //Arrange

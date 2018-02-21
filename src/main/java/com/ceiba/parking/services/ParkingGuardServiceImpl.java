@@ -34,9 +34,9 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     @Transactional
     public Mono<ParkingTicket> enterVehicle(Vehicle vehicle) {
         validateEntryConditions(vehicle);
+        validateTypeVehicle(vehicle);
         ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDate(), null, 0, 0);
         parkingTicket.addVehicle(vehicle);
-
         return parkingTicketRepository.save(parkingTicket);
     }
 
@@ -59,7 +59,15 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         }
         return true;
     }
-
+    @Override
+    public void validateTypeVehicle(Vehicle vehicle) {
+        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) && vehicle.getEngine()==0){
+            throw new ParkingException("Please enter the engine for the motorcycle");
+        }
+        if(vehicle.getType().equals(VehicleType.CAR) && vehicle.getEngine()!=0 ) {
+            throw new ParkingException("Please remove the engine for the car");
+        }
+    }
     private boolean licenseBigintWithA(Vehicle vehicle) {
         return vehicle.getLicense().toUpperCase().startsWith("A");
     }
@@ -68,6 +76,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         return calendarGuard.getActualWeekDay() == java.util.Calendar.MONDAY
                 || calendarGuard.getActualWeekDay() == java.util.Calendar.SUNDAY;
     }
+
 
     @Override
     public int howManyVehiclesAreParking(VehicleType vehicleType) {

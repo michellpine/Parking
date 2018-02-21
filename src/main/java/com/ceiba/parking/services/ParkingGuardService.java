@@ -11,6 +11,7 @@ public interface ParkingGuardService {
     Mono<ParkingTicket> enterVehicle(Vehicle vehicle);
     void validateEntryConditions(Vehicle vehicle);
     boolean canEnterVehicle(Vehicle vehicle);
+    void validateTypeVehicle(Vehicle vehicle);
 
     int howManyVehiclesAreParking(VehicleType vehicleType);
 

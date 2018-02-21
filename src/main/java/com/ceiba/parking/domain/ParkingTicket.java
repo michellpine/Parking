@@ -10,20 +10,19 @@ import java.util.UUID;
 public class ParkingTicket {
 
     @Id
-    protected String id= UUID.randomUUID().toString();
-    protected String license;
-    protected VehicleType vehicleType;
+    private String id= UUID.randomUUID().toString();
+    private String license;
+    private VehicleType vehicleType;
 
     @NotNull
-    protected String dateArrive;
-    protected String dateOut;
-    protected int totalHours;
-    protected int valueToPay;
+    private String dateArrive;
+    private String dateOut;
+    private int totalHours;
+    private int valueToPay;
 
-    protected Vehicle vehicle;
+    private Vehicle vehicle;
 
-    public ParkingTicket() {
-    }
+    public ParkingTicket() {}
 
     public ParkingTicket(String license, VehicleType vehicleType, String dateArrive, String dateOut, int totalHours, int valueToPay) {
         this.license = license;

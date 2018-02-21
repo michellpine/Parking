@@ -15,6 +15,7 @@ import static com.ceiba.parking.builder.VehicleTestDataBuilder.aVehicle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 public class ParkingServiceGuardServiceImplTest {
 
@@ -22,6 +23,11 @@ public class ParkingServiceGuardServiceImplTest {
     ParkingTicketRepository parkingTicketRepository;
     CalculatorParkingGuard calculatorParkingGuard;
     public static final String VEHICLE_CAN_ENTER = "Vehicle cannot enter, license begin for A and today is not available day for it";
+    public static final String NO_AVAILABLE_CAR_CELLS = "Vehicle cannot enter, there are not more cells available for cars";
+    public static final String NO_AVAILABLE_MOTORCYCLES_CELLS ="Vehicle cannot enter, there are not more cells available for motorcycles";
+    public static final String VEHICLE_IS_NOT_A_MOTORYCLE = "Please enter the engine for the motorcycle";
+    public static final String CAR_HAS_NOT_ENGINE = "Please remove the engine for the car";
+
 
     @Before
     public void setUp() {
@@ -30,8 +36,40 @@ public class ParkingServiceGuardServiceImplTest {
     }
 
     @Test
-    public void validateEntryConditions() {
+    public void validateEntryConditionsForCar() {
+        //Arrange
+        Vehicle car = aVehicle()
+                .withLicense("DCD123")
+                .withType(VehicleType.CAR)
+                .withIsParking(true)
+                .build();
+        //Act
+        parkingGuardService = Mockito.mock(ParkingGuardService.class);
+        when(parkingGuardService.howManyVehiclesAreParking(car.getType())).thenReturn(21);
+        try {
+            parkingGuardService.validateEntryConditions(car);
+        }catch (RuntimeException e){
+            assertEquals(NO_AVAILABLE_CAR_CELLS, e.getMessage());
+        }
+    }
 
+    @Test
+    public void validateEntryConditionsForMotorcycles() {
+        //Arrange
+        Vehicle moto = aVehicle()
+                .withLicense("FCD123")
+                .withType(VehicleType.MOTORCYCLE)
+                .withEngine(300)
+                .withIsParking(true)
+                .build();
+        //Act
+        parkingGuardService = Mockito.mock(ParkingGuardService.class);
+        when(parkingGuardService.howManyVehiclesAreParking(moto.getType())).thenReturn(11);
+        try {
+            parkingGuardService.validateEntryConditions(moto);
+        }catch (RuntimeException e){
+            assertEquals(NO_AVAILABLE_MOTORCYCLES_CELLS, e.getMessage());
+        }
     }
 
     @Test
@@ -170,6 +208,45 @@ public class ParkingServiceGuardServiceImplTest {
         }catch (RuntimeException e){
             //Assert
             assertEquals(VEHICLE_CAN_ENTER, e.getMessage());
+        }
+    }
+
+    @Test
+    public void validateTypeVehicleIsNotAMotorcycle() {
+        //Arrange
+        Vehicle moto = aVehicle()
+                .withLicense("PCD124")
+                .withType(VehicleType.MOTORCYCLE)
+                .withIsParking(true)
+                .build();
+
+        //Act
+        CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
+        parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
+        try {
+            parkingGuardService.validateTypeVehicle(moto);
+        }catch (RuntimeException e){
+            assertEquals(VEHICLE_IS_NOT_A_MOTORYCLE, e.getMessage());
+        }
+    }
+
+    @Test
+    public void validateCarHasNotEngine() {
+        //Arrange
+        Vehicle car = aVehicle()
+                .withLicense("PCD124")
+                .withType(VehicleType.CAR)
+                .withEngine(100)
+                .withIsParking(true)
+                .build();
+
+        //Act
+        CalendarGuard calendarGuard = Mockito.mock(CalendarGuard.class);
+        parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
+        try {
+            parkingGuardService.validateTypeVehicle(car);
+        }catch (RuntimeException e){
+            assertEquals(CAR_HAS_NOT_ENGINE, e.getMessage());
         }
     }
 }

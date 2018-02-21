@@ -27,7 +27,7 @@ public class CalendarGuardTest {
     @Test
     public void getActualDate(){
         DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-        
+
     }
 
     @Test

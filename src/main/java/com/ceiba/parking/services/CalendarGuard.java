@@ -23,7 +23,7 @@ public class CalendarGuard {
     }
 
     public Date stringToDate(String date) {
-        Date convert = new Date();
+        Date convert;
         try{
             convert = DATE_FORMAT.parse(date);
         } catch (ParseException e) {
