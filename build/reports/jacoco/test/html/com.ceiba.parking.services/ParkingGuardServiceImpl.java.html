@@ -23,20 +23,20 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     static final int MOTORCYCLE_CELLS_AVAILABLE = 10;
 
     public ParkingGuardServiceImpl(ParkingTicketRepository parkingTicketRepository,
-<span class="fc" id="L26">                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {</span>
-<span class="fc" id="L27">        this.parkingTicketRepository = parkingTicketRepository;</span>
-<span class="fc" id="L28">        this.calendarGuard          = calendarGuard;</span>
-<span class="fc" id="L29">        this.calculatorParkingGuard = calculatorParkingGuard;</span>
-<span class="fc" id="L30">    }</span>
+<span class="nc" id="L26">                                   CalendarGuard calendarGuard, CalculatorParkingGuard calculatorParkingGuard) {</span>
+<span class="nc" id="L27">        this.parkingTicketRepository = parkingTicketRepository;</span>
+<span class="nc" id="L28">        this.calendarGuard          = calendarGuard;</span>
+<span class="nc" id="L29">        this.calculatorParkingGuard = calculatorParkingGuard;</span>
+<span class="nc" id="L30">    }</span>
 
 
     @Override
     @Transactional
     public Mono&lt;ParkingTicket&gt; enterVehicle(Vehicle vehicle) {
 <span class="nc" id="L36">        validateEntryConditions(vehicle);</span>
-<span class="nc" id="L37">        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDay(), null, 0, 0);</span>
-<span class="nc" id="L38">        parkingTicket.addVehicle(vehicle);</span>
-
+<span class="nc" id="L37">        validateTypeVehicle(vehicle);</span>
+<span class="nc" id="L38">        ParkingTicket parkingTicket = new ParkingTicket(vehicle.getLicense(), vehicle.getType(), calendarGuard.getActualDate(), null, 0, 0);</span>
+<span class="nc" id="L39">        parkingTicket.addVehicle(vehicle);</span>
 <span class="nc" id="L40">        return parkingTicketRepository.save(parkingTicket);</span>
     }
 
@@ -53,52 +53,61 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
 
     @Override
     public boolean canEnterVehicle(Vehicle vehicle) {
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (licenseBigintWithA(vehicle)</span>
-<span class="fc bfc" id="L57" title="All 2 branches covered.">                &amp;&amp; !isAvailableDay()) {</span>
-<span class="fc" id="L58">            throw new ParkingException(&quot;Vehicle cannot enter, license begin for A and today is not available day for it&quot;);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (licenseBigintWithA(vehicle)</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                &amp;&amp; !isAvailableDay()) {</span>
+<span class="nc" id="L58">            throw new ParkingException(&quot;Vehicle cannot enter, license begin for A and today is not available day for it&quot;);</span>
         }
-<span class="fc" id="L60">        return true;</span>
+<span class="nc" id="L60">        return true;</span>
     }
-
+    @Override
+    public void validateTypeVehicle(Vehicle vehicle) {
+<span class="nc bnc" id="L64" title="All 4 branches missed.">        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) &amp;&amp; vehicle.getEngine()==0){</span>
+<span class="nc" id="L65">            throw new ParkingException(&quot;Please enter the engine for the motorcycle&quot;);</span>
+        }
+<span class="nc bnc" id="L67" title="All 4 branches missed.">        if(vehicle.getType().equals(VehicleType.CAR) &amp;&amp; vehicle.getEngine()!=0 ) {</span>
+<span class="nc" id="L68">            throw new ParkingException(&quot;Please remove the engine for the car&quot;);</span>
+        }
+<span class="nc" id="L70">    }</span>
     private boolean licenseBigintWithA(Vehicle vehicle) {
-<span class="fc" id="L64">        return vehicle.getLicense().toUpperCase().startsWith(&quot;A&quot;);</span>
+<span class="nc" id="L72">        return vehicle.getLicense().toUpperCase().startsWith(&quot;A&quot;);</span>
     }
 
     private boolean isAvailableDay() {
-<span class="fc bfc" id="L68" title="All 2 branches covered.">        return calendarGuard.getActualWeekDay() == java.util.Calendar.MONDAY</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">                || calendarGuard.getActualWeekDay() == java.util.Calendar.SUNDAY;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        return calendarGuard.getActualWeekDay() == java.util.Calendar.MONDAY</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                || calendarGuard.getActualWeekDay() == java.util.Calendar.SUNDAY;</span>
     }
+
 
     @Override
     public int howManyVehiclesAreParking(VehicleType vehicleType) {
-<span class="fc" id="L74">        List&lt;ParkingTicket&gt; vehiclesParking = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L75">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehiclesParking::add);</span>
+<span class="nc" id="L83">        List&lt;ParkingTicket&gt; vehiclesParking = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L84">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehiclesParking::add);</span>
 
-<span class="fc" id="L77">        List&lt;ParkingTicket&gt; vehiclesParkingForType = vehiclesParking.stream()</span>
-<span class="fc" id="L78">                .filter(line -&gt; line.getVehicleType().equals(vehicleType))</span>
-<span class="fc" id="L79">                .collect(Collectors.toList());</span>
-<span class="fc" id="L80">        return vehiclesParkingForType.size();</span>
+<span class="nc" id="L86">        List&lt;ParkingTicket&gt; vehiclesParkingForType = vehiclesParking.stream()</span>
+<span class="nc" id="L87">                .filter(line -&gt; line.getVehicleType().equals(vehicleType))</span>
+<span class="nc" id="L88">                .collect(Collectors.toList());</span>
+<span class="nc" id="L89">        return vehiclesParkingForType.size();</span>
     }
 
     @Override
     public ParkingTicket findParkingTicket(String id) {
-<span class="nc" id="L85">        return parkingTicketRepository.findById(id).block();</span>
+<span class="nc" id="L94">        return parkingTicketRepository.findById(id).block();</span>
     }
 
     @Override
     public List&lt;ParkingTicket&gt; findParkingVehicles() {
-<span class="nc" id="L90">        List&lt;ParkingTicket&gt; vehicles = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L91">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehicles::add);</span>
-<span class="nc" id="L92">        return vehicles;</span>
+<span class="nc" id="L99">        List&lt;ParkingTicket&gt; vehicles = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L100">        parkingTicketRepository.findByVehicle_isParking(true).toIterable().forEach(vehicles::add);</span>
+<span class="nc" id="L101">        return vehicles;</span>
     }
 
     @Override
     public Mono&lt;ParkingTicket&gt; outVehicle(ParkingTicket ticket, Vehicle vehicle) {
-<span class="nc" id="L97">        ticket.setDateOut(calendarGuard.getActualDay());</span>
-<span class="nc" id="L98">        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));</span>
-<span class="nc" id="L99">        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), vehicle.getEngine()));</span>
-<span class="nc" id="L100">        ticket.getVehicle().setParking(false);</span>
-<span class="nc" id="L101">        return parkingTicketRepository.save(ticket);</span>
+<span class="nc" id="L106">        ticket.setDateOut(calendarGuard.getActualDate());</span>
+<span class="nc" id="L107">        ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));</span>
+<span class="nc" id="L108">        ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), vehicle.getEngine()));</span>
+<span class="nc" id="L109">        ticket.getVehicle().setParking(false);</span>
+<span class="nc" id="L110">        return parkingTicketRepository.save(ticket);</span>
     }
 
 }
