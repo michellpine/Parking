@@ -60,7 +60,7 @@ public class CalculatorParkingGuardTest {
     public void calculateValueToPayForAMotorcycleWithALessCC() {
         //Arrange
         int hours = 27;
-        VehicleType type = VehicleType.MOTORCYCLE;
+        VehicleType type = VehicleType.BYKE;
         //Act
         int result = calculatorParkingGuard.calculateValueToPay(hours, type, 300);
         //Assert
@@ -71,7 +71,7 @@ public class CalculatorParkingGuardTest {
     public void calculateValueToPayForAMotorcycleWithABiggerCC() {
         //Arrange
         int hours = 27;
-        VehicleType type = VehicleType.MOTORCYCLE;
+        VehicleType type = VehicleType.BYKE;
         //Act
         int result = calculatorParkingGuard.calculateValueToPay(hours, type, 550);
         //Assert

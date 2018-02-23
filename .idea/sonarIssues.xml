@@ -98,6 +98,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/domain/VehicleType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ceiba/parking/repositories/ParkingTicketRepository.java">
           <value>
             <set />

@@ -58,7 +58,7 @@ public class ParkingServiceGuardServiceImplTest {
         //Arrange
         Vehicle moto = aVehicle()
                 .withLicense("FCD123")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withEngine(300)
                 .withIsParking(true)
                 .build();
@@ -105,13 +105,13 @@ public class ParkingServiceGuardServiceImplTest {
         //Arrange
         Vehicle moto = aVehicle()
                 .withLicense("DCD123")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withEngine(200)
                 .withIsParking(true)
                 .build();
         Vehicle moto1 = aVehicle()
                 .withLicense("FCD123")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withIsParking(true)
                 .withEngine(500)
                 .build();
@@ -127,7 +127,7 @@ public class ParkingServiceGuardServiceImplTest {
         parkingGuardService = new ParkingGuardServiceImpl(parkingTicketRepository, calendarGuard, calculatorParkingGuard);
 
         //Arrenge
-        assertEquals(2, parkingGuardService.howManyVehiclesAreParking(VehicleType.MOTORCYCLE));
+        assertEquals(2, parkingGuardService.howManyVehiclesAreParking(VehicleType.BYKE));
     }
 
 
@@ -135,7 +135,7 @@ public class ParkingServiceGuardServiceImplTest {
     public void canEnterVehicle(){
         Vehicle moto = aVehicle()
                 .withLicense("ACD123")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withEngine(150)
                 .withIsParking(true)
                 .build();
@@ -173,7 +173,7 @@ public class ParkingServiceGuardServiceImplTest {
         //Arrange
         Vehicle moto = aVehicle()
                 .withLicense("ACD125")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withEngine(150)
                 .withIsParking(true)
                 .build();
@@ -195,7 +195,7 @@ public class ParkingServiceGuardServiceImplTest {
         //Arrange
         Vehicle moto = aVehicle()
                 .withLicense("ACD126")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withIsParking(true)
                 .build();
         try {
@@ -216,7 +216,7 @@ public class ParkingServiceGuardServiceImplTest {
         //Arrange
         Vehicle moto = aVehicle()
                 .withLicense("PCD124")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withIsParking(true)
                 .build();
 

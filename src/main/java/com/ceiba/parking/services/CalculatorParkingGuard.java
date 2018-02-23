@@ -36,7 +36,7 @@ public class CalculatorParkingGuard {
         }else {
             hoursToPay = hours % TOTAL_HOURS_PER_DAY;
         }
-        if(type.equals(VehicleType.MOTORCYCLE) && engine>=CC_LIMIT){
+        if(type.equals(VehicleType.BYKE) && engine>=CC_LIMIT){
             valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE) + EXTRA_MONEY_TO_PAY_FOR_CC_LIMIT;
         }else {
             valueToPay = (daysToPay * VALUE_DAY_MOTORCYCLE) + (hoursToPay * VALUE_HOUR_MOTORCYCLE);

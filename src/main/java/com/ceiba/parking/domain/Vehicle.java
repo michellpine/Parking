@@ -21,7 +21,7 @@ public class Vehicle {
     private int engine;
 
     @NotNull
-    private boolean isParking;
+    private boolean isParking = true;
 
     public Vehicle(){
 
@@ -42,6 +42,10 @@ public class Vehicle {
 
     //Getters and Setters
 
+
+    public String getId() {
+        return id;
+    }
     public String getLicense() {
         return license;
     }

@@ -46,7 +46,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         if(vehicle.getType().equals(VehicleType.CAR) && howManyVehiclesAreParking(VehicleType.CAR)>= CARS_CELLS_AVAILABLE){
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for cars");
         }
-        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) && howManyVehiclesAreParking(VehicleType.MOTORCYCLE)>= MOTORCYCLE_CELLS_AVAILABLE){
+        if(vehicle.getType().equals(VehicleType.BYKE) && howManyVehiclesAreParking(VehicleType.BYKE)>= MOTORCYCLE_CELLS_AVAILABLE){
             throw new ParkingException("Vehicle cannot enter, there are not more cells available for motorcycles");
         }
     }
@@ -61,7 +61,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
     }
     @Override
     public void validateTypeVehicle(Vehicle vehicle) {
-        if(vehicle.getType().equals(VehicleType.MOTORCYCLE) && vehicle.getEngine()==0){
+        if(vehicle.getType().equals(VehicleType.BYKE) && vehicle.getEngine()==0){
             throw new ParkingException("Please enter the engine for the motorcycle");
         }
         if(vehicle.getType().equals(VehicleType.CAR) && vehicle.getEngine()!=0 ) {

@@ -26,7 +26,7 @@ public class VehicleTest {
         //Arrange
         Vehicle vehicle = aVehicle()
                 .withLicense("ACD123")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withEngine(150)
                 .build();
         //Act
@@ -54,14 +54,14 @@ public class VehicleTest {
         //Arrange
         Vehicle vehicle = aVehicle()
                 .withLicense("ACD123")
-                .withType(VehicleType.MOTORCYCLE)
+                .withType(VehicleType.BYKE)
                 .withEngine(150)
                 .withIsParking(true)
                 .build();
         //Act
         VehicleType result = vehicle.getType();
         //Assert
-        assertEquals(VehicleType.MOTORCYCLE, result);
+        assertEquals(VehicleType.BYKE, result);
     }
 
     @Test
