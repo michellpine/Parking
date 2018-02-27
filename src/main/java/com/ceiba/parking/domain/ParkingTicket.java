@@ -38,6 +38,9 @@ public class ParkingTicket {
         return this;
     }
 
+    public String getId() {
+        return id;
+    }
 
     public String getDateArrive() {
         return dateArrive;
@@ -71,4 +74,7 @@ public class ParkingTicket {
         return vehicle;
     }
 
+    public int getValueToPay() {
+        return valueToPay;
+    }
 }

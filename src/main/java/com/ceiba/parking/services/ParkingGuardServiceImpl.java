@@ -106,6 +106,7 @@ public class ParkingGuardServiceImpl implements ParkingGuardService {
         ticket.setDateOut(calendarGuard.getActualDate());
         ticket.setTotalHours(calculatorParkingGuard.getCountHours(calendarGuard.stringToDate(ticket.getDateArrive()), calendarGuard.stringToDate(ticket.getDateOut())));
         ticket.setValueToPay(calculatorParkingGuard.calculateValueToPay(ticket.getTotalHours(), ticket.getVehicleType(), vehicle.getEngine()));
+        ticket.getValueToPay();
         ticket.getVehicle().setParking(false);
         return parkingTicketRepository.save(ticket);
     }
